@@ -7,6 +7,9 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>PinyinFlow</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <style>
 :root{
   --bg:#faf7f2;--card:#ffffff;--ink:#1d1d1f;--mute:#6b6b70;--line:#ebe5da;
@@ -642,6 +645,7 @@ function importData(inp){const f=inp.files[0];if(!f)return;const r=new FileReade
 function resetAll(){if(confirm("Delete all progress? This can't be undone.")){S=defState();save();render();toast("Progress reset");}}
 
 render();
+if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{});});}
 </script>
 </body>
 </html>
