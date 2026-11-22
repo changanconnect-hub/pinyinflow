@@ -176,6 +176,7 @@ select{padding:10px 12px;border-radius:12px;border:1px solid var(--line);backgro
 .sy.miss{background:var(--red2);color:var(--red)}
 .cmp{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;min-height:8px}
 .feedback{text-align:center}
+.hzs{font-size:.78em;color:var(--mute);font-weight:400;margin-left:5px;letter-spacing:.5px}
 .combo{font-size:13px;font-weight:800;color:var(--gold);margin-left:6px}
 </style>
 </head>
@@ -237,22 +238,22 @@ const L={
  lin:["林","Lín","Lin (a name)",2], ali:["阿里","Ālǐ","Ali (a name)",2]
 };
 const TIP={
- ni:"3rd tone: go low, then a little up.", hao:"Also 3rd tone. In 你好 the first 3rd tone becomes 2nd → ní hǎo.",
- hen:"In 很好 both are 3rd tones → said hén hǎo.", ma:"No tone — short and light, like Azerbaijani 'mı'.",
+ ni:"3rd tone: go low, then a little up.", hao:"Also 3rd tone. In nǐ hǎo the first 3rd tone becomes 2nd → ní hǎo.",
+ hen:"In hěn hǎo both are 3rd tones → said hén hǎo.", ma:"No tone — short and light, like Azerbaijani 'mı'.",
  xiexie:"The second 'xie' is light and short.", buke:"Say it as one word. Means 'don't be polite'.",
- shi:"'sh' + a buzzing sound — not 'shee'. Falling tone, like a firm order.", bu:"Changes to bú before a 4th tone: 不是 = bú shì.",
- ta:"他 (he) and 她 (she) sound exactly the same!", ta2:"Sounds exactly like 他 (he). Only the writing is different.",
- zhongguo:"中 = middle, 国 = country → 'the Middle Country'.", xuesheng:"学 = study, 生 = person. The 'sheng' is light.",
+ shi:"'sh' + a buzzing sound — not 'shee'. Falling tone, like a firm order.", bu:"Changes to bú before a 4th tone: bú shì.",
+ ta:"'He' and 'she' are both tā — they sound exactly the same! Only the writing is different.", ta2:"Sounds exactly like tā (he). Only the writing is different.",
+ zhongguo:"Zhōng = middle, guó = country → 'the Middle Country'.", xuesheng:"xué = study, shēng = person. The 'sheng' is light.",
  asbj:"Long word — say it slowly: Ā-sài-bài-jiāng.", ne:"Light and short, like 'Bəs sən?'.",
- ye:"Always goes before the verb: 我也是…", dui:"Very common: 'right!', 'yes, that's it'.",
+ ye:"Always goes before the verb: Wǒ yě shì…", dui:"Very common: 'right!', 'yes, that's it'.",
  de:"Light and short. The most common word in Chinese!", zhe:"zh = like 'j' with your tongue curled back.",
- na:"Falling tone. Don't mix up with nǎ (which?).", you:"Like Azerbaijani 'var'.", meiyou:"Like Azerbaijani 'yox'. Never say 不有.",
- ge:"Light tone. Goes between a number and a thing: 三个人.", liang:"'Two OF something': 两个. For counting 1, 2, 3 use èr.",
+ na:"Falling tone. Don't mix up with nǎ (which?).", you:"Like Azerbaijani 'var'.", meiyou:"Like Azerbaijani 'yox'. Never say bù yǒu.",
+ ge:"Light tone. Goes between a number and a thing: sān ge rén.", liang:"'Two OF something': liǎng ge. For counting 1, 2, 3 use èr.",
  ji:"j = like 'j' in 'jeep'.", qi:"q = like 'ch' in 'cheese' → 'chee'.", si:"s + a buzzing sound — not 'see'.",
  shi2:"shí (10) rises. shì (to be) falls. sì (4) falls. Listen carefully!", er:"Like 'ar' with the tongue curled.",
- xiang:"x = a soft 'sh' with a smile.", qian:"q = 'ch' sound → 'chyen'.", le:"Light. Used with 太: 太贵了!",
+ xiang:"x = a soft 'sh' with a smile.", qian:"q = 'ch' sound → 'chyen'.", le:"Light. Used with tài: Tài guì le!",
  cha:"ch with the tongue curled back.", keyi:"Two 3rd tones → said ké yǐ.", laoban:"Two 3rd tones → said láo bǎn.",
- zhege:"这 + 个 = this one.", nage:"那 + 个 = that one.", yidian:"一 becomes yì before a 3rd tone."
+ zhege:"zhè + ge = this one.", nage:"nà + ge = that one.", yidian:"yī becomes yì before a 3rd tone."
 };
 
 /* =====================================================================
@@ -264,9 +265,9 @@ const RAW=[
  gram:[
   {title:"The 4 tones",tones:true,body:`Every syllable has a <b>tone</b>. Change the tone and the meaning changes. Tap each one to hear it:`,
    after:`Colors in this app: <span class="t1">red = 1st</span> (high, flat), <span class="t2">orange = 2nd</span> (rising, like "Hm?"), <span class="t3">green = 3rd</span> (low dip), <span class="t4">blue = 4th</span> (falling, like a firm "Dur!"), <span class="t5">gray = light</span> (short and soft).`,ex:[]},
-  {title:"你好 = you + good",body:`Chinese builds words like Lego. <b>你</b> (you) + <b>好</b> (good) = <b>你好</b> = hello.<br><br>Two 3rd tones together? The first one becomes a 2nd tone. So 你好 is said <b>ní hǎo</b>.`,ex:[["你好！","ni hao","Hello!"]]},
-  {title:"No 'am' with adjectives",body:`In Azerbaijani you say "Mən yaxşı<b>yam</b>". Chinese has no "-am / is" before adjectives. Instead put <b>很</b> (very):<br><br><b>我很好</b> = I (am) fine.<br><br>Here 很 doesn't really mean "very" — it's just the normal way to say it.`,ex:[["我很好。","wo hen hao","I'm fine."]]},
-  {title:"吗 makes a question",body:`Put <b>吗</b> at the end and the sentence becomes a question — just like Azerbaijani <b>mı / mi</b>:<br><br>你好 → <b>你好吗？</b> = How are you?<br><br>More about this on Day 3.`,ex:[["你好吗？","ni hao ma","How are you?"]]}
+  {title:"nǐ hǎo = you + good",body:`Chinese builds words like Lego. <b>{nǐ|你}</b> (you) + <b>{hǎo|好}</b> (good) = <b>{nǐ hǎo|你好}</b> = hello.<br><br>Two 3rd tones together? The first one becomes a 2nd tone. So nǐ hǎo is said <b>ní hǎo</b>.`,ex:[["你好！","ni hao","Hello!"]]},
+  {title:"No 'am' with adjectives",body:`In Azerbaijani you say "Mən yaxşı<b>yam</b>". Chinese has no "-am / is" before adjectives. Instead put <b>{hěn|很}</b> (very):<br><br><b>{Wǒ hěn hǎo.|我很好。}</b> = I (am) fine.<br><br>Here hěn doesn't really mean "very" — it's just the normal way to say it.`,ex:[["我很好。","wo hen hao","I'm fine."]]},
+  {title:"ma makes a question",body:`Put <b>{ma|吗}</b> at the end and the sentence becomes a question — just like Azerbaijani <b>mı / mi</b>:<br><br>{Nǐ hǎo|你好} → <b>{Nǐ hǎo ma?|你好吗？}</b> = How are you?<br><br>More about this on Day 3.`,ex:[["你好吗？","ni hao ma","How are you?"]]}
  ],
  sents:[["你好！","ni hao","Hello!",1],["我很好。","wo hen hao","I'm fine.",2],["你很好。","ni hen hao","You are good.",2],
   ["我很好，谢谢！","wo hen hao , xiexie","I'm fine, thanks!",2],["你好吗？","ni hao ma","How are you?",3],["谢谢你！","xiexie ni","Thank you!",-1]],
@@ -276,9 +277,9 @@ const RAW=[
 {title:"Who are you?",goal:"Say who you are, where you're from, and what you're not.",
  words:"shi bu ta ta2 ren zhongguo asbj laoshi xuesheng women",focus:"shi bu2 ren",
  gram:[
-  {title:"A 是 B = A is B",body:`<b>是</b> (shì) links two things: <b>我是学生</b> = I am (a) student.<br><br>Word order is like English: <b>I – am – student</b>. Azerbaijani puts "am" at the end (Mən tələbə<b>yəm</b>) — Chinese puts it in the middle.<br><br>No "a / an", and 是 never changes: same for I, you, he, we.`,ex:[["她是老师。","ta2 shi laoshi","She is a teacher."]]},
-  {title:"不 = not",body:`Put <b>不</b> before the verb: 我<b>不</b>是老师 = I am <b>not</b> a teacher.<br><br>Tone change: before a 4th tone, 不 is said <b>bú</b>. 是 is 4th tone, so 不是 = <b>bú shì</b>.<br><br>不是 alone also means "No."`,ex:[["我不是老师。","wo bu2 shi laoshi","I'm not a teacher."]]},
-  {title:"Country + 人 = nationality",body:`人 (rén) = person. Put it after a country:<br><br><b>中国</b> (China) + <b>人</b> = 中国人 = Chinese person<br><b>阿塞拜疆</b> + <b>人</b> = Azerbaijani person`,ex:[["中国人","zhongguo ren","Chinese person"]]}
+  {title:"A shì B = A is B",body:`<b>{shì|是}</b> links two things: <b>{Wǒ shì xuésheng.|我是学生。}</b> = I am (a) student.<br><br>Word order is like English: <b>I – am – student</b>. Azerbaijani puts "am" at the end (Mən tələbə<b>yəm</b>) — Chinese puts it in the middle.<br><br>No "a / an", and shì never changes: same for I, you, he, we.`,ex:[["她是老师。","ta2 shi laoshi","She is a teacher."]]},
+  {title:"bù = not",body:`Put <b>{bù|不}</b> before the verb: {Wǒ <b>bú</b> shì lǎoshī.|我不是老师。} = I am <b>not</b> a teacher.<br><br>Tone change: before a 4th tone, bù is said <b>bú</b>. shì is 4th tone, so it's <b>{bú shì|不是}</b>.<br><br>Bú shì alone also means "No."`,ex:[["我不是老师。","wo bu2 shi laoshi","I'm not a teacher."]]},
+  {title:"Country + rén = nationality",body:`<b>{rén|人}</b> = person. Put it after a country:<br><br><b>{Zhōngguó|中国}</b> (China) + <b>rén</b> = {Zhōngguó rén|中国人} = Chinese person<br><b>{Āsàibàijiāng|阿塞拜疆}</b> + <b>rén</b> = Azerbaijani person`,ex:[["中国人","zhongguo ren","Chinese person"]]}
  ],
  sents:[["我是学生。","wo shi xuesheng","I am a student.",0],["你是老师。","ni shi laoshi","You are a teacher.",0],["我们是学生。","women shi xuesheng","We are students.",0],
   ["我不是老师。","wo bu2 shi laoshi","I am not a teacher.",1],["他不是学生。","ta bu2 shi xuesheng","He is not a student.",1],
@@ -290,10 +291,10 @@ const RAW=[
 {title:"Questions",goal:"Ask yes/no questions, ask names, and say 'me too'.",
  words:"ne shenme jiao mingzi ye dui",focus:"ma ne ye shenme jiao",
  gram:[
-  {title:"吗 = mı / mi",body:`Good news — you already know this! <b>吗</b> works exactly like Azerbaijani <b>mı / mi</b>:<br><br>Sən tələbəsən → Sən tələbəsən <b>mi</b>?<br>你是学生 → 你是学生<b>吗</b>？<br><br>There's no real word for "yes / no". Repeat the verb: <b>是</b> (yes) / <b>不是</b> (no). Or say <b>对</b> (duì) = "right, yes".`,ex:[["你是学生吗？","ni shi xuesheng ma","Are you a student?"],["对。","dui","Yes."]]},
-  {title:"Question words stay in place",body:`English moves "what" to the front. Chinese doesn't — the question word sits <b>exactly where the answer goes</b>:<br><br>你叫<b>什么</b>名字？ = You're called <b>what</b> name?<br>我叫<b>林</b>。 = I'm called <b>Lin</b>.<br><br>⚠️ Never add 吗 when there's already a question word like 什么.`,ex:[["你叫什么名字？","ni jiao shenme mingzi","What's your name?"]]},
-  {title:"呢 = 'and you?'",body:`Bounce a question back with <b>呢</b>: 我很好，你<b>呢</b>？ = I'm fine, and you?<br><br>Just like Azerbaijani "<b>Bəs sən?</b>"`,ex:[["你呢？","ni ne","And you?"]]},
-  {title:"也 = also (before the verb!)",body:`<b>也</b> always goes <b>before the verb</b>:<br><br>我<b>也</b>是学生 = I <b>also</b> am a student. ✅<br>我是也学生 ❌`,ex:[["我也是学生。","wo ye shi xuesheng","I'm a student too."]]}
+  {title:"ma = mı / mi",body:`Good news — you already know this! <b>{ma|吗}</b> works exactly like Azerbaijani <b>mı / mi</b>:<br><br>Sən tələbəsən → Sən tələbəsən <b>mi</b>?<br>{Nǐ shì xuésheng.|你是学生。} → {Nǐ shì xuésheng <b>ma</b>?|你是学生吗？}<br><br>There's no real word for "yes / no". Repeat the verb: <b>{shì|是}</b> (yes) / <b>{bú shì|不是}</b> (no). Or say <b>{duì|对}</b> = "right, yes".`,ex:[["你是学生吗？","ni shi xuesheng ma","Are you a student?"],["对。","dui","Yes."]]},
+  {title:"Question words stay in place",body:`English moves "what" to the front. Chinese doesn't — the question word sits <b>exactly where the answer goes</b>:<br><br>{Nǐ jiào <b>shénme</b> míngzi?|你叫什么名字？} = You're called <b>what</b> name?<br>{Wǒ jiào <b>Lín</b>.|我叫林。} = I'm called <b>Lin</b>.<br><br>⚠️ Never add <b>{ma|吗}</b> when there's already a question word like <b>{shénme|什么}</b>.`,ex:[["你叫什么名字？","ni jiao shenme mingzi","What's your name?"]]},
+  {title:"ne = 'and you?'",body:`Bounce a question back with <b>{ne|呢}</b>:<br><br>{Wǒ hěn hǎo, nǐ <b>ne</b>?|我很好，你呢？} = I'm fine, and you?<br><br>Just like Azerbaijani "<b>Bəs sən?</b>"`,ex:[["你呢？","ni ne","And you?"]]},
+  {title:"yě = also (before the verb!)",body:`<b>{yě|也}</b> always goes <b>before the verb</b>:<br><br>{Wǒ <b>yě</b> shì xuésheng.|我也是学生。} = I <b>also</b> am a student. ✅<br>Wǒ shì yě xuésheng ❌`,ex:[["我也是学生。","wo ye shi xuesheng","I'm a student too."]]}
  ],
  sents:[["你是学生吗？","ni shi xuesheng ma","Are you a student?",0],["他是老师吗？","ta shi laoshi ma","Is he a teacher?",0],["你是中国人吗？","ni shi zhongguo ren ma","Are you Chinese?",0],
   ["你叫什么名字？","ni jiao shenme mingzi","What's your name?",1],["我叫林。","wo jiao lin","My name is Lin.",1],
@@ -305,9 +306,9 @@ const RAW=[
 {title:"My family",goal:"Say 'my / your / Lin's', and point: this is…, that is…",
  words:"de baba mama gege jiejie pengyou zhe na",focus:"de zhe na shi",
  gram:[
-  {title:"的 = 's (my, your, his)",body:`<b>的</b> shows who owns something — like English <b>'s</b> or Azerbaijani <b>-ın / -in</b>:<br><br>我 + 的 = <b>我的</b> = my / mine<br>你 + 的 = <b>你的</b> = your / yours<br>林 + 的 = <b>林的</b> = Lin's<br><br>Pattern: <b>owner + 的 + thing</b> → 我的朋友 = my friend.<br>的 can also stand alone: 这是<b>你的</b>吗？ = Is this <b>yours</b>?`,ex:[["我的朋友","wo de pengyou","my friend"],["林的老师","lin de laoshi","Lin's teacher"]]},
-  {title:"Close people? Drop 的",body:`With family and close friends you can drop 的:<br><br><b>我妈妈</b> = my mom · <b>我朋友</b> = my friend<br><br>Both 我的妈妈 and 我妈妈 are correct — 我妈妈 sounds more natural.`,ex:[["我妈妈","wo mama","my mom"]]},
-  {title:"这 / 那 = this / that",body:`<b>这</b> (zhè) = this (near) · <b>那</b> (nà) = that (far)<br><br>这是我爸爸 = <b>This is</b> my dad.<br>那是我的 = <b>That is</b> mine.`,ex:[["这是我爸爸。","zhe shi wo baba","This is my dad."]]}
+  {title:"de = 's (my, your, his)",body:`<b>{de|的}</b> shows who owns something — like English <b>'s</b> or Azerbaijani <b>-ın / -in</b>:<br><br>wǒ + de = <b>{wǒ de|我的}</b> = my / mine<br>nǐ + de = <b>{nǐ de|你的}</b> = your / yours<br>Lín + de = <b>{Lín de|林的}</b> = Lin's<br><br>Pattern: <b>owner + de + thing</b> → {wǒ de péngyou|我的朋友} = my friend.<br>de can also stand alone: {Zhè shì <b>nǐ de</b> ma?|这是你的吗？} = Is this <b>yours</b>?`,ex:[["我的朋友","wo de pengyou","my friend"],["林的老师","lin de laoshi","Lin's teacher"]]},
+  {title:"Close people? Drop de",body:`With family and close friends you can drop de:<br><br><b>{wǒ māma|我妈妈}</b> = my mom · <b>{wǒ péngyou|我朋友}</b> = my friend<br><br>Both wǒ de māma and wǒ māma are correct — wǒ māma sounds more natural.`,ex:[["我妈妈","wo mama","my mom"]]},
+  {title:"zhè / nà = this / that",body:`<b>{zhè|这}</b> = this (near) · <b>{nà|那}</b> = that (far)<br><br>{<b>Zhè shì</b> wǒ bàba.|这是我爸爸。} = <b>This is</b> my dad.<br>{<b>Nà shì</b> wǒ de.|那是我的。} = <b>That is</b> mine.`,ex:[["这是我爸爸。","zhe shi wo baba","This is my dad."]]}
  ],
  sents:[["这是我的朋友。","zhe shi wo de pengyou","This is my friend.",0],["他是我的老师。","ta shi wo de laoshi","He is my teacher.",0],["她是林的妈妈。","ta2 shi lin de mama","She is Lin's mom.",0],
   ["这是你的吗？","zhe shi ni de ma","Is this yours?",0],["这是我妈妈。","zhe shi wo mama","This is my mom.",1],["我姐姐是老师。","wo jiejie shi laoshi","My older sister is a teacher.",1],
@@ -320,10 +321,10 @@ const RAW=[
 {title:"Numbers & have",goal:"Count to 99, say what you have (var / yox), and use 个.",
  words:"you meiyou yi er san si wu liu qi ba jiu shi2 ge liang ji",focus:"you meiyou ge liang ji",
  gram:[
-  {title:"有 / 没有 = var / yox",body:`Another easy one for you!<br><br><b>有</b> (yǒu) = <b>var</b> · <b>没有</b> (méiyǒu) = <b>yox</b><br><br>我<b>有</b>朋友 = Dostum <b>var</b>.<br>我<b>没有</b>老师 = Müəllimim <b>yox</b>.<br><br>⚠️ Never say 不有. The "not" of 有 is always <b>没有</b>.`,ex:[["我有朋友。","wo you pengyou","I have friends."],["我没有老师。","wo meiyou laoshi","I don't have a teacher."]]},
-  {title:"Numbers 1–99",body:`1–10: yī èr sān sì wǔ liù qī bā jiǔ shí<br><br>Bigger numbers work like math:<br><b>11</b> = 十一 (10 + 1)<br><b>20</b> = 二十 (2 × 10)<br><b>25</b> = 二十五 (2 × 10 + 5)<br><b>99</b> = 九十九`,ex:[["十一","shi2 yi","11"],["二十","er shi2","20"],["二十五","er shi2 wu","25"],["九十九","jiu shi2 jiu","99"]]},
-  {title:"个 = 'dənə' (counting word)",body:`You can't say "three friend" directly. Put a counting word in between:<br><br><b>number + 个 + thing</b><br>三个学生 = three students<br><br>Just like Azerbaijani "üç <b>dənə</b> alma". 个 (ge) is the most common one.<br><br>⚠️ "Two" before 个 is <b>两</b> (liǎng), not 二: <b>两个</b>朋友.<br>⚠️ 一个 is said <b>yí ge</b>.`,ex:[["一个朋友","yi2 ge pengyou","one friend"],["两个学生","liang ge xuesheng","two students"]]},
-  {title:"几 = how many?",body:`<b>几</b> (jǐ) asks "how many?" (for small numbers). It goes where the number goes:<br><br>你有<b>几</b>个朋友？ → 我有<b>三</b>个朋友。`,ex:[["你有几个朋友？","ni you ji ge pengyou","How many friends do you have?"]]}
+  {title:"yǒu / méiyǒu = var / yox",body:`Another easy one for you!<br><br><b>{yǒu|有}</b> = <b>var</b> · <b>{méiyǒu|没有}</b> = <b>yox</b><br><br>{Wǒ <b>yǒu</b> péngyou.|我有朋友。} = Dostum <b>var</b>.<br>{Wǒ <b>méiyǒu</b> lǎoshī.|我没有老师。} = Müəllimim <b>yox</b>.<br><br>⚠️ Never say bù yǒu. The "not" of yǒu is always <b>méiyǒu</b>.`,ex:[["我有朋友。","wo you pengyou","I have friends."],["我没有老师。","wo meiyou laoshi","I don't have a teacher."]]},
+  {title:"Numbers 1–99",body:`1–10: yī èr sān sì wǔ liù qī bā jiǔ shí<br><br>Bigger numbers work like math:<br><b>11</b> = {shíyī|十一} (10 + 1)<br><b>20</b> = {èrshí|二十} (2 × 10)<br><b>25</b> = {èrshíwǔ|二十五} (2 × 10 + 5)<br><b>99</b> = {jiǔshíjiǔ|九十九}`,ex:[["十一","shi2 yi","11"],["二十","er shi2","20"],["二十五","er shi2 wu","25"],["九十九","jiu shi2 jiu","99"]]},
+  {title:"ge = 'dənə' (counting word)",body:`You can't say "three friend" directly. Put a counting word in between:<br><br><b>number + {ge|个} + thing</b><br>{sān ge xuésheng|三个学生} = three students<br><br>Just like Azerbaijani "üç <b>dənə</b> alma". ge is the most common one.<br><br>⚠️ "Two" before ge is <b>{liǎng|两}</b>, not èr: {<b>liǎng ge</b> péngyou|两个朋友}.<br>⚠️ yī + ge is said <b>yí ge</b>.`,ex:[["一个朋友","yi2 ge pengyou","one friend"],["两个学生","liang ge xuesheng","two students"]]},
+  {title:"jǐ = how many?",body:`<b>{jǐ|几}</b> asks "how many?" (for small numbers). It goes where the number goes:<br><br>{Nǐ yǒu <b>jǐ</b> ge péngyou?|你有几个朋友？}<br>→ {Wǒ yǒu <b>sān</b> ge péngyou.|我有三个朋友。}`,ex:[["你有几个朋友？","ni you ji ge pengyou","How many friends do you have?"]]}
  ],
  sents:[["我有朋友。","wo you pengyou","I have friends.",0],["我没有老师。","wo meiyou laoshi","I don't have a teacher.",0],["你有哥哥吗？","ni you gege ma","Do you have an older brother?",0],
   ["我有一个朋友。","wo you yi2 ge pengyou","I have one friend.",2],["我有两个姐姐。","wo you liang ge jiejie","I have two older sisters.",2],["他有三个学生。","ta you san ge xuesheng","He has three students.",2],
@@ -335,10 +336,10 @@ const RAW=[
 {title:"Buying things",goal:"Say what you want, ask the price, and complain it's too expensive.",
  words:"yao xiang mai zhege nage duoshao qian kuai tai le gui pianyi cha shui",focus:"yao xiang tai le duoshao kuai",
  gram:[
-  {title:"要 vs 想",body:`<b>要</b> (yào) = <b>want</b> — direct, totally normal in shops: 我<b>要</b>这个.<br><b>想</b> (xiǎng) = <b>would like</b> — softer, more polite: 我<b>想</b>买茶.<br><br>Don't want: <b>不要</b> (bú yào).`,ex:[["我要这个。","wo yao zhege","I want this one."],["我想买茶。","wo xiang mai cha","I'd like to buy tea."]]},
-  {title:"这个 / 那个 = this one / that one",body:`Remember 个 from Day 5?<br><br>这 + 个 = <b>这个</b> (this one)<br>那 + 个 = <b>那个</b> (that one)<br><br>Point and say it — the most useful words in any shop!`,ex:[["那个很便宜。","nage hen pianyi","That one is cheap."]]},
-  {title:"多少钱？ = How much?",body:`多少 (how much) + 钱 (money) = <b>多少钱？</b><br><br>这个<b>多少钱</b>？ = How much is this one?<br>Answer: number + <b>块</b> (kuài = yuan): <b>五块</b> = 5 yuan.`,ex:[["这个多少钱？","zhege duoshao qian","How much is this one?"]]},
-  {title:"太…了 = too …!",body:`Wrap a word with <b>太 … 了</b>:<br><br><b>太</b>贵<b>了</b>！ = Too expensive!<br><b>太</b>好<b>了</b>！ = Great!<br><br>The 了 at the end adds feeling — don't forget it.`,ex:[["太贵了！","tai gui le","Too expensive!"]]}
+  {title:"yào vs xiǎng",body:`<b>{yào|要}</b> = <b>want</b> — direct, totally normal in shops:<br>{Wǒ <b>yào</b> zhège.|我要这个。}<br><br><b>{xiǎng|想}</b> = <b>would like</b> — softer, more polite:<br>{Wǒ <b>xiǎng</b> mǎi chá.|我想买茶。}<br><br>Don't want: <b>{bú yào|不要}</b>.`,ex:[["我要这个。","wo yao zhege","I want this one."],["我想买茶。","wo xiang mai cha","I'd like to buy tea."]]},
+  {title:"zhège / nàge = this one / that one",body:`Remember ge from Day 5?<br><br>zhè + ge = <b>{zhège|这个}</b> (this one)<br>nà + ge = <b>{nàge|那个}</b> (that one)<br><br>Point and say it — the most useful words in any shop!`,ex:[["那个很便宜。","nage hen pianyi","That one is cheap."]]},
+  {title:"duōshao qián? = How much?",body:`{duōshao|多少} (how much) + {qián|钱} (money) = <b>{duōshao qián?|多少钱？}</b><br><br>{Zhège <b>duōshao qián</b>?|这个多少钱？} = How much is this one?<br>Answer: number + <b>{kuài|块}</b> (= yuan): <b>{wǔ kuài|五块}</b> = 5 yuan.`,ex:[["这个多少钱？","zhege duoshao qian","How much is this one?"]]},
+  {title:"tài … le = too …!",body:`Wrap a word with <b>{tài … le|太…了}</b>:<br><br>{<b>Tài</b> guì <b>le</b>!|太贵了！} = Too expensive!<br>{<b>Tài</b> hǎo <b>le</b>!|太好了！} = Great!<br><br>The le at the end adds feeling — don't forget it.`,ex:[["太贵了！","tai gui le","Too expensive!"]]}
  ],
  sents:[["我要这个。","wo yao zhege","I want this one.",0],["我想买茶。","wo xiang mai cha","I'd like to buy tea.",0],["你要水吗？","ni yao shui ma","Do you want water?",0],["我不要。","wo bu2 yao","I don't want it.",0],
   ["那个很便宜。","nage hen pianyi","That one is cheap.",1],["这个多少钱？","zhege duoshao qian","How much is this one?",2],["五块。","wu kuai","Five yuan.",2],
@@ -350,8 +351,8 @@ const RAW=[
 {title:"Review & bargaining",goal:"Use everything from this week to bargain with a supplier.",
  words:"laoban keyi yidian",focus:"keyi yidian ge de ye",
  gram:[
-  {title:"可以 = can / OK",body:`<b>可以</b> (kěyǐ) = can / may / OK.<br><br>可以吗？ = Is that OK? → <b>可以！</b> = OK!<br><br>便宜<b>一点</b>，可以吗？ = A little cheaper, OK?<br>(一点 = a little)`,ex:[["可以吗？","keyi ma","Is that OK?"],["便宜一点，可以吗？","pianyi yidian , keyi ma","A little cheaper, OK?"]]},
-  {title:"Week 1 recap 🎉",body:`<b>A 是 B</b> — 我是学生<br><b>不 + verb</b> — 我不是老师<br><b>…吗？</b> — yes/no question (= mı/mi)<br><b>…呢？</b> — and you? (= Bəs sən?)<br><b>也</b> before the verb — 我也是学生<br><b>的</b> — 我的朋友<br><b>有 / 没有</b> — var / yox<br><b>number + 个 + thing</b> — 两个朋友<br><b>太…了</b> — 太贵了！<br><br>That's a real foundation. Well done!`,ex:[]}
+  {title:"kěyǐ = can / OK",body:`<b>{kěyǐ|可以}</b> = can / may / OK.<br><br>{Kěyǐ ma?|可以吗？} = Is that OK? → <b>{Kěyǐ!|可以！}</b> = OK!<br><br>{Piányi <b>yìdiǎn</b>, kěyǐ ma?|便宜一点，可以吗？} = A little cheaper, OK?<br>(yìdiǎn = a little)`,ex:[["可以吗？","keyi ma","Is that OK?"],["便宜一点，可以吗？","pianyi yidian , keyi ma","A little cheaper, OK?"]]},
+  {title:"Week 1 recap 🎉",body:`<b>A shì B</b> — {Wǒ shì xuésheng|我是学生}<br><b>bù + verb</b> — {Wǒ bú shì lǎoshī|我不是老师}<br><b>… ma?</b> — yes/no question (= mı/mi)<br><b>… ne?</b> — and you? (= Bəs sən?)<br><b>yě</b> before the verb — {Wǒ yě shì xuésheng|我也是学生}<br><b>de</b> — {wǒ de péngyou|我的朋友}<br><b>yǒu / méiyǒu</b> — var / yox<br><b>number + ge + thing</b> — {liǎng ge péngyou|两个朋友}<br><b>tài … le</b> — {Tài guì le!|太贵了！}<br><br>That's a real foundation. Well done!`,ex:[]}
  ],
  sents:[["老板，这个多少钱？","laoban , zhege duoshao qian","Boss, how much is this one?",0],["便宜一点，可以吗？","pianyi yidian , keyi ma","A little cheaper, OK?",0],
   ["我想买十个。","wo xiang mai shi2 ge","I'd like to buy ten.",1],["你有茶吗？","ni you cha ma","Do you have tea?",1],["我的朋友也要水。","wo de pengyou ye yao shui","My friend also wants water.",1],
@@ -361,7 +362,7 @@ const RAW=[
   ["ali","太贵了！便宜一点，可以吗？","tai gui le . pianyi yidian , keyi ma","Too expensive! A little cheaper, OK?"],["boss","可以，一个七块。","keyi , yi2 ge qi kuai","OK, seven yuan each."],
   ["ali","好！我要十个。谢谢！","hao . wo yao shi2 ge . xiexie","Great! I want ten. Thanks!"],["boss","不客气，再见！","buke , zaijian","You're welcome, goodbye!"]]}
 ];
-const WHO={lin:"Lin",ali:"Ali",boss:"Seller 老板"};
+const WHO={lin:"Lin",ali:"Ali",boss:"Seller"};
 const PART=[{n:"New words",i:"🆕"},{n:"Grammar & sentences",i:"📘"},{n:"Conversation",i:"💬"}];
 
 /* ================== COMPILE COURSE ================== */
@@ -424,7 +425,7 @@ function say(text,slow,onend){
   if(!("speechSynthesis" in window)){toast("This browser can't speak. Use Chrome.");if(onend)onend();return;}
   if(typeof REC!=="undefined"&&REC.audio)try{REC.audio.pause();}catch(e){}
   speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(String(text).replace(/[…？?！!。，,]/g," "));
+  const u=new SpeechSynthesisUtterance(String(text).replace(/…/g,"").replace(/,/g,"，").replace(/\?/g,"？").replace(/!/g,"！").replace(/\./g,"。"));
   u.lang="zh-CN";if(zhVoice)u.voice=zhVoice;u.rate=slow?0.5:S.settings.rate;
   if(onend){let done=false;const f=()=>{if(!done){done=true;onend();}};u.onend=f;setTimeout(f,1500+String(text).length*450);}
   speechSynthesis.speak(u);
@@ -639,8 +640,9 @@ function rWord(st,b){const w=L[st.k];SS.xp+=2;addXp(2);
   b.innerHTML='<div class="flash"><span class="tag">New word</span><div class="py">'+cpy(w[1])+'</div>'+hzl(w[0])+'<div class="en">'+w[2]+'</div>'+(TIP[st.k]?'<div class="note">💡 '+TIP[st.k]+'</div>':"")+audioRow(w[0],w[1])+'<div class="small mute">Listen, then say it out loud 2–3 times</div></div>'+cont();
   auto(w[0]);}
 function toneGrid(){return'<div class="tones">'+[["妈",1,"high & flat"],["麻",2,"rising ↗"],["马",3,"low dip ↘↗"],["骂",4,"falling ↘"]].map(x=>'<div onclick="say(\''+x[0]+'\')"><b class="t'+x[1]+'">'+mark("ma",x[1])+'</b><span class="small mute">'+x[2]+'</span></div>').join("")+'</div><p class="small mute" style="margin-top:0">mā = mom · má = hemp · mǎ = horse · mà = to scold</p>';}
-function exRow(s){return'<div class="ex" onclick="say('+r(s.hz)+')"><div><div class="p">'+cpy(s.py)+'</div>'+(S.settings.showHz?'<div class="mute small">'+s.hz+'</div>':"")+'<div class="e">'+s.en+'</div></div><span>🔊</span></div>';}
-function gramHtml(g){return'<div class="gbody">'+g.body+'</div>'+(g.tones?toneGrid():"")+(g.after?'<div class="gbody small">'+g.after+'</div>':"")+g.ex.map(exRow).join("");}
+function exRow(s,hz){return'<div class="ex" onclick="say('+r(s.hz)+')"><div><div class="p">'+cpy(s.py)+'</div>'+(hz||S.settings.showHz?'<div class="mute small">'+s.hz+'</div>':"")+'<div class="e">'+s.en+'</div></div><span>🔊</span></div>';}
+function zh(t){return t.replace(/\{([^|}]+)\|([^}]+)\}/g,(m,a,b)=>'<span class="pz">'+a+'</span><span class="hzs">'+b+'</span>');}
+function gramHtml(g){return'<div class="gbody">'+zh(g.body)+'</div>'+(g.tones?toneGrid():"")+(g.after?'<div class="gbody small">'+zh(g.after)+'</div>':"")+g.ex.map(s=>exRow(s,true)).join("");}
 function rGram(st,b){const g=DAYS[st.d].G[st.gi];SS.xp+=2;addXp(2);
   b.innerHTML='<div style="flex:1"><span class="tag gold">Grammar</span><h2>'+g.title+'</h2>'+gramHtml(g)+'</div>'+cont("Got it");}
 function rSent(st,b){const s=st.s;SS.xp+=2;addXp(2);
