@@ -53,7 +53,7 @@ h3{font-size:16px;margin:0 0 10px}
 .prog i{display:block;height:100%;background:var(--green);border-radius:99px;transition:width .3s}
 .t1{color:var(--t1)}.t2{color:var(--t2)}.t3{color:var(--t3)}.t4{color:var(--t4)}.t5{color:var(--t5)}
 .nocolor .t1,.nocolor .t2,.nocolor .t3,.nocolor .t4,.nocolor .t5{color:inherit}
-nav.tabs{position:fixed;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(4,1fr);background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);z-index:6}
+nav.tabs{position:fixed;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(5,1fr);background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);z-index:6}
 nav.tabs button{background:none;border:0;color:var(--mute);padding:10px 0 12px;font-size:12px;font-weight:600}
 nav.tabs button span{display:block;font-size:22px;margin-bottom:2px}
 nav.tabs button.on{color:var(--red)}
@@ -177,6 +177,38 @@ select{padding:10px 12px;border-radius:12px;border:1px solid var(--line);backgro
 .cmp{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;min-height:8px}
 .feedback{text-align:center}
 .hzs{font-size:.78em;color:var(--mute);font-weight:400;margin-left:5px;letter-spacing:.5px}
+.hook{background:var(--gold2);border-radius:12px;padding:10px 12px;font-size:14px;text-align:left;max-width:440px;margin-top:6px}
+.sbars{display:inline-flex;gap:2px;vertical-align:middle;margin-left:6px}
+.sbars i{width:5px;height:12px;border-radius:2px;background:var(--line)}
+.sbars i.on.s1,.sbars i.on.s2{background:var(--red)}.sbars i.on.s3{background:var(--gold)}.sbars i.on.s4,.sbars i.on.s5{background:var(--green)}
+.plan{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.plan:first-of-type{border-top:0}
+.plan .n{width:30px;height:30px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:800;flex:none}
+.plan .n.ok{background:var(--green);color:#fff}
+.plan .t{flex:1}
+.plan .btn{width:auto}
+.day a{color:var(--green);text-decoration:none;font-weight:600}
+.wkh{display:flex;justify-content:space-between;align-items:center;cursor:pointer;margin:6px 0}
+.spic{font-size:76px;text-align:center;background:linear-gradient(135deg,var(--gold2),var(--red2));border-radius:22px;padding:18px 0;margin:12px 0}
+.sline{padding:10px 8px;border-radius:14px;margin-bottom:4px;transition:background .2s}
+.sline.on{background:var(--gold2)}
+.swords{display:flex;flex-wrap:wrap;align-items:flex-end;gap:2px 6px}
+.wt{display:inline-flex;flex-direction:column;align-items:center;cursor:pointer;padding:2px 3px;border-radius:8px}
+.wt:active{background:var(--line)}
+.wt b{font-size:21px}
+.wt small{font-size:12px;color:var(--mute)}
+.pu{font-size:21px;font-weight:700;align-self:flex-start;margin-left:-7px;margin-right:2px}
+.srow{display:flex;align-items:center;gap:6px}
+.sen{font-size:14px;color:var(--mute)}
+.who-chip{display:inline-block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:2px 8px;border-radius:99px;background:var(--line);margin-bottom:4px}
+.who-chip.ali{background:var(--green2);color:var(--green)}.who-chip.lin{background:#e7f1fb;color:var(--t4)}.who-chip.boss{background:var(--gold2);color:var(--gold)}.who-chip.cat{background:var(--red2);color:var(--red)}
+@media (prefers-color-scheme:dark){.who-chip.lin{background:#14304a}}
+.wpop{position:fixed;left:12px;right:12px;bottom:calc(96px + env(safe-area-inset-bottom));z-index:31;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);max-width:540px;margin:0 auto}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.scard{background:var(--bg);border-radius:16px;padding:14px 10px;text-align:center;cursor:pointer;border:1px solid var(--line)}
+.scard.lock{opacity:.5}
+.scov{font-size:46px}
+.stit{font-weight:700;margin:4px 0 2px}
 .combo{font-size:13px;font-weight:800;color:var(--gold);margin-left:6px}
 </style>
 </head>
@@ -188,6 +220,7 @@ select{padding:10px 12px;border-radius:12px;border:1px solid var(--line);backgro
 
 <main>
   <section id="v-learn" class="view active"></section>
+  <section id="v-stories" class="view"></section>
   <section id="v-practice" class="view"></section>
   <section id="v-notes" class="view"></section>
   <section id="v-me" class="view"></section>
@@ -195,6 +228,7 @@ select{padding:10px 12px;border-radius:12px;border:1px solid var(--line);backgro
 
 <nav class="tabs">
   <button data-v="learn" class="on"><span>🏠</span>Learn</button>
+  <button data-v="stories"><span>📖</span>Stories</button>
   <button data-v="practice"><span>🎧</span>Practice</button>
   <button data-v="notes"><span>📒</span>Notes</button>
   <button data-v="me"><span>⚙️</span>Me</button>
@@ -235,7 +269,57 @@ const L={
  kuai:["块","kuài","yuan (money)"], tai:["太","tài","too (much)"], le:["了","le","(ending: 太…了)"], gui:["贵","guì","expensive"],
  pianyi:["便宜","piányi","cheap"], cha:["茶","chá","tea"], shui:["水","shuǐ","water"],
  laoban:["老板","lǎobǎn","boss / shop owner"], keyi:["可以","kěyǐ","can / OK"], yidian:["一点","yìdiǎn","a little"],
- lin:["林","Lín","Lin (a name)",2], ali:["阿里","Ālǐ","Ali (a name)",2]
+ lin:["林","Lín","Lin (a name)",2], ali:["阿里","Ālǐ","Ali (a name)",2],
+ /* ---- Week 2 ---- */
+ zai:["在","zài","at / in (be at a place)"], qu:["去","qù","to go"], lai:["来","lái","to come"], nar:["哪儿","nǎr","where"],
+ jia:["家","jiā","home"], baku:["巴库","Bākù","Baku"], gongsi:["公司","gōngsī","company"],
+ xianzai:["现在","xiànzài","now"], jintian:["今天","jīntiān","today"], mingtian:["明天","míngtiān","tomorrow"], zuotian:["昨天","zuótiān","yesterday"],
+ dian:["点","diǎn","o'clock"], ban:["半","bàn","half (:30)"],
+ chi:["吃","chī","to eat"], he:["喝","hē","to drink"], kan:["看","kàn","to look / watch"], ting:["听","tīng","to listen"],
+ shuo:["说","shuō","to speak / say"], zhongwen:["中文","Zhōngwén","Chinese (language)"], fan:["饭","fàn","meal / rice"],
+ xihuan:["喜欢","xǐhuan","to like"], hui:["会","huì","can (a skill)"], mao:["猫","māo","cat"], gou:["狗","gǒu","dog"],
+ zuo:["做","zuò","to do / make"], gongzuo:["工作","gōngzuò","job / to work"], maii:["卖","mài","to sell"],
+ weixin:["微信","wēixìn","WeChat"], fa:["发","fā","to send"], gei:["给","gěi","give / to (someone)"], yangpin:["样品","yàngpǐn","sample"],
+ gongchang:["工厂","gōngchǎng","factory"], qing:["请","qǐng","please"],
+ da:["大","dà","big"], xiao:["小","xiǎo","small"], xin:["新","xīn","new"], haokan:["好看","hǎokàn","good-looking / nice"],
+ bi:["比","bǐ","compared to (than)"], zui:["最","zuì","the most"],
+ deng:["等","děng","to wait"], zhidao:["知道","zhīdào","to know"], shihou:["时候","shíhou","time (when)"],
+ miao:["喵","miāo","meow!",2]
+};
+/* Memory hooks: a funny link to remember each word */
+const HOOK={
+ ni:"nǐ sounds like 'knee' — point your knee at YOU.", wo:"wǒ ≈ 'whoa!' — 'Whoa, it's ME!'", hao:"hǎo ≈ 'how' — 'How GOOD!'",
+ hen:"hěn ≈ 'hen' — a VERY big hen.", ma:"ma = Azerbaijani 'mı / mi'. Same job, almost the same sound!",
+ zaijian:"zài = again, jiàn = see → 'see you again'.", shi:"shì ≈ 'sure!' — sure, it IS.", bu:"bù ≈ 'boo!' — the crowd says NO.",
+ ta:"tā ≈ 'ta-da!' — here HE is!", ta2:"tā ≈ 'ta-da!' — here SHE is!", ren:"rén ≈ 'run' — a PERSON runs.",
+ laoshi:"lǎo = old, shī = master → the old master = TEACHER.", xuesheng:"xué = study + shēng = person → STUDENT.",
+ women:"wǒ + men (= more people) → WE.", ne:"ne = 'Bəs …?' — bounce the question back.", shenme:"shénme ≈ 'shun-muh?' — 'WHAT?!'",
+ jiao:"jiào ≈ 'Ciao!' — 'Ciao, they CALL me Ali.'", ye:"yě ≈ 'yeah, me TOO!'", dui:"duì ≈ 'doğru!' — RIGHT!",
+ de:"de = Azerbaijani '-in': mən-im → wǒ de.", baba:"bàba — 'baba' means dad in Turkish too!", mama:"māma — mom, same everywhere!",
+ pengyou:"péngyou ≈ 'ping-pong yo!' — playing ping-pong with a FRIEND.", zhe:"zhè (this) is HERE, close to you.", na:"nà (that) — 'n' for 'not here', far away.",
+ you:"yǒu ≈ 'yo!' — 'Yo, I HAVE it!' = var.", meiyou:"méi + yǒu = not have = yox.", ge:"ge = dənə: üç dənə = sān ge.",
+ liang:"liǎng ≈ 'lung' — you have TWO lungs!", ji:"jǐ? ≈ 'Gee, how many?'", yi:"yī ≈ 'ee' — one finger up.", er:"èr ≈ 'are' — TWO of us are here.",
+ san:"sān ≈ 'sun' — 3 suns!", si:"sì ≈ 'sih' — four.", wu:"wǔ ≈ 'woo!' — wave 5 fingers: woo!", liu:"liù ≈ 'Leo' — Leo is 6.",
+ qi:"qī ≈ 'chee(se)' — 7 slices of cheese.", ba:"bā ≈ 'baa' — 8 sheep say baa.", jiu:"jiǔ ≈ 'Joe' — Joe is 9.", shi2:"shí (10) climbs UP like a ladder ↗ to 10.",
+ yao:"yào ≈ 'yow!' — 'Yow, I WANT it!'", mai:"mǎi (buy) dips ˇ — like your wallet going down.", maii:"mài (sell) falls ˋ — money falls into YOUR pocket.",
+ duoshao:"duō (many) + shǎo (few) → 'many-few?' = HOW MUCH?", kuai:"kuài — 5 kuài = 5 yuan.", tai:"tài ≈ 'tie' — a TOO tight tie!",
+ gui:"guì ≈ 'gway' — 'go away, too EXPENSIVE!'", cha:"chá = çay! Tea travelled from China with its name.", shui:"shuǐ ≈ 'shway' — water sways.",
+ laoban:"lǎo (old) + bǎn → the 'old boss' of the shop.", keyi:"kěyǐ ≈ 'K-ee!' — OK!", yidian:"yì (one) + diǎn (dot) → one dot = A LITTLE.",
+ mingzi:"míng = bright → your NAME shines.", gege:"gēge ≈ 'go-go!' — big BROTHER cheers you on.", jiejie:"jiějie ≈ 'Jay-Jay' — your big SISTER.",
+ pianyi:"piányi ≈ 'piano-ee' — a CHEAP piano.",
+ zai:"zài = Azerbaijani '-da / -də': evdə = zài jiā.", qu:"qù ≈ 'choo!' — the choo-choo train GOES.", lai:"lái ≈ 'lie' — COME and lie down.",
+ nar:"nǎr = Azerbaijani 'nar' (pomegranate) — WHERE is my nar?", jia:"jiā ≈ 'jah' — 'Ah, HOME sweet home.'", gongsi:"gōngsī ≈ 'gong-see' — hit the gong at the COMPANY.",
+ xianzai:"xiànzài ≈ 'shyen-zai' — do it NOW!", jintian:"tiān = day. jīn-tiān = TODAY.", mingtian:"tiān = day. míng-tiān = TOMORROW (míng = bright, next).",
+ zuotian:"tiān = day. zuó-tiān = YESTERDAY.", dian:"diǎn = dot → the clock's dot = O'CLOCK.", ban:"bàn ≈ 'bun' — HALF a bun.",
+ chi:"chī ≈ 'chew' — chew = EAT.", he:"hē ≈ 'huh!' — gulp, huh! = DRINK.", kan:"kàn ≈ 'can' — CAN you SEE it?", ting:"tīng ≈ 'ting!' — LISTEN to the bell.",
+ shuo:"shuō ≈ 'show' — show & tell = SPEAK.", zhongwen:"Zhōng (China) + wén (language) = CHINESE.", fan:"fàn ≈ 'fun' — a MEAL is fun.",
+ xihuan:"xǐhuan ≈ 'she-hwan' — SHE LIKES it.", hui:"huì ≈ 'way' — I know the WAY = I CAN (a skill).", mao:"māo ≈ 'meow' 🐱 — the cat says its own name!",
+ gou:"gǒu ≈ 'go!' — tell the DOG: go!", zuo:"zuò ≈ 'zwo' — DO it!", gongzuo:"gōng-zuò ≈ 'gong-zwo' — WORK.",
+ weixin:"wēi (micro) + xìn (message) = WeChat.", fa:"fā ≈ 'fax' — SEND a fax.", gei:"gěi ≈ 'gimme!' — GIVE it to me.",
+ yangpin:"yàng (look) + pǐn (product) → SAMPLE.", gongchang:"gōng (work) + chǎng (place) → FACTORY.", qing:"qǐng ≈ 'ching' — ring the bell politely: PLEASE.",
+ da:"dà ≈ 'DAH!' — say it big and loud = BIG.", xiao:"xiǎo ≈ 'shyow' — Xiǎo Lín = little Lin = SMALL.", xin:"xīn ≈ 'shin' — shiny = NEW.",
+ haokan:"hǎo (good) + kàn (look) = GOOD-LOOKING.", bi:"bǐ ≈ 'bee' — compare a bee and a bird.", zui:"zuì ≈ 'sway' — the MOST, top of the list.",
+ deng:"děng ≈ 'dang!' — 'Dang, I have to WAIT.'", zhidao:"zhī-dào ≈ 'jir-dow' — I KNOW the Dao (the way).", shihou:"shénme shíhou = what time = WHEN."
 };
 const TIP={
  ni:"3rd tone: go low, then a little up.", hao:"Also 3rd tone. In nǐ hǎo the first 3rd tone becomes 2nd → ní hǎo.",
@@ -253,7 +337,12 @@ const TIP={
  shi2:"shí (10) rises. shì (to be) falls. sì (4) falls. Listen carefully!", er:"Like 'ar' with the tongue curled.",
  xiang:"x = a soft 'sh' with a smile.", qian:"q = 'ch' sound → 'chyen'.", le:"Light. Used with tài: Tài guì le!",
  cha:"ch with the tongue curled back.", keyi:"Two 3rd tones → said ké yǐ.", laoban:"Two 3rd tones → said láo bǎn.",
- zhege:"zhè + ge = this one.", nage:"nà + ge = that one.", yidian:"yī becomes yì before a 3rd tone."
+ zhege:"zhè + ge = this one.", nage:"nà + ge = that one.", yidian:"yī becomes yì before a 3rd tone.",
+ zai:"Falling tone, like a firm 'zai!'", nar:"The 'r' at the end is a Beijing touch. Say nǎ, then curl your tongue.",
+ baku:"Our city in Chinese: Bā-kù.", ban:"Comes after the hour: bā diǎn bàn = 8:30.", fan:"chī fàn = 'eat rice' = have a meal.",
+ hui:"For skills you learned: speaking, driving, cooking.", maii:"mài (sell) vs mǎi (buy) — only the tone is different!",
+ gei:"gěi wǒ = to me. Like Azerbaijani 'mənə'.", qing:"Put it at the start: Qǐng…", bi:"A bǐ B + adjective = A is more … than B.",
+ shihou:"Used in shénme shíhou = when.", zhidao:"bù zhīdào = I don't know (very useful!)."
 };
 
 /* =====================================================================
@@ -360,9 +449,110 @@ const RAW=[
  dlg:[["ali","老板，你好！","laoban , ni hao","Hello, boss!"],["boss","你好！你要什么？","ni hao , ni yao shenme","Hello! What do you want?"],
   ["ali","我想买这个。多少钱？","wo xiang mai zhege . duoshao qian","I'd like to buy this one. How much?"],["boss","一个八块。","yi2 ge ba kuai","Eight yuan each."],
   ["ali","太贵了！便宜一点，可以吗？","tai gui le . pianyi yidian , keyi ma","Too expensive! A little cheaper, OK?"],["boss","可以，一个七块。","keyi , yi2 ge qi kuai","OK, seven yuan each."],
-  ["ali","好！我要十个。谢谢！","hao . wo yao shi2 ge . xiexie","Great! I want ten. Thanks!"],["boss","不客气，再见！","buke , zaijian","You're welcome, goodbye!"]]}
+  ["ali","好！我要十个。谢谢！","hao . wo yao shi2 ge . xiexie","Great! I want ten. Thanks!"],["boss","不客气，再见！","buke , zaijian","You're welcome, goodbye!"]]},
+
+/* =========================== WEEK 2 =========================== */
+{title:"Where are you?",goal:"Say where you are, where you're going, and ask 'where?'.",
+ words:"zai qu lai nar jia baku gongsi",focus:"zai qu lai nar",
+ gram:[
+  {title:"zài = at / in (-da / -də)",body:`<b>{zài|在}</b> + place = to be at a place:<br><br>{Wǒ <b>zài</b> jiā.|我在家。} = I'm at home. (Mən ev<b>də</b>yəm)<br>{Lín <b>zài</b> Zhōngguó.|林在中国。} = Lin is in China.<br><br>⚠️ zài already means "am at" — don't add shì: Wǒ shì zài jiā ❌`,ex:[["我在家。","wo zai jia","I'm at home."]]},
+  {title:"qù / lái = go / come",body:`<b>{qù|去}</b> + place = go to a place. No "to" needed!<br>{Wǒ <b>qù</b> Zhōngguó.|我去中国。} = I go to China. (Çin<b>ə</b> gedirəm — Chinese has no "-ə")<br><br><b>{lái|来}</b> = come:<br>{Nǐ <b>lái</b> Bākù ma?|你来巴库吗？} = Are you coming to Baku?`,ex:[["我去中国。","wo qu zhongguo","I'm going to China."]]},
+  {title:"nǎr = where? (like 'nar')",body:`<b>{nǎr|哪儿}</b> asks "where?". Like every question word, it sits exactly where the answer goes:<br><br>{Nǐ zài <b>nǎr</b>?|你在哪儿？} = Where are you?<br>{Wǒ zài <b>jiā</b>.|我在家。} = I'm at <b>home</b>.<br><br>Memory hook: nǎr sounds like Azerbaijani <b>nar</b> (pomegranate) — "Where's my nar?"`,ex:[["你在哪儿？","ni zai nar","Where are you?"],["你去哪儿？","ni qu nar","Where are you going?"]]}
+ ],
+ sents:[["我在家。","wo zai jia","I'm at home.",0],["林在中国。","lin zai zhongguo","Lin is in China.",0],["我的公司在巴库。","wo de gongsi zai baku","My company is in Baku.",0],
+  ["我去中国。","wo qu zhongguo","I'm going to China.",1],["你来巴库吗？","ni lai baku ma","Are you coming to Baku?",1],["我们去公司。","women qu gongsi","We're going to the company.",1],
+  ["你在哪儿？","ni zai nar","Where are you?",2],["你去哪儿？","ni qu nar","Where are you going?",2]],
+ dlg:[["lin","阿里，你在哪儿？","ali , ni zai nar","Ali, where are you?"],["ali","我在家。你呢？","wo zai jia . ni ne","I'm at home. And you?"],
+  ["lin","我在公司。你去中国吗？","wo zai gongsi . ni qu zhongguo ma","I'm at the company. Are you going to China?"],["ali","对！我去中国。","dui , wo qu zhongguo","Yes! I'm going to China."],
+  ["lin","太好了！你也来我的公司吗？","tai hao le . ni ye lai wo de gongsi ma","Great! Will you come to my company too?"],["ali","可以！","keyi","Sure!"]]},
+
+{title:"Time",goal:"Say today / tomorrow / yesterday and tell the time.",
+ words:"xianzai jintian mingtian zuotian dian ban",focus:"jintian mingtian zuotian dian ban xianzai",
+ gram:[
+  {title:"Time goes BEFORE the verb",body:`Good news — this is like Azerbaijani! Mən <b>sabah</b> gedirəm →<br>{Wǒ <b>míngtiān</b> qù.|我明天去。} = I'm going tomorrow.<br><br>You can also start with the time:<br>{<b>Míngtiān</b> wǒ qù Zhōngguó.|明天我去中国。}<br><br>⭐ Chinese verbs never change for past or future. The time word does the job:<br>{<b>Zuótiān</b> wǒ zài jiā.|昨天我在家。} = Yesterday I <b>was</b> at home.`,ex:[["我明天去中国。","wo mingtian qu zhongguo","I'm going to China tomorrow."]]},
+  {title:"tiān = day",body:`Three words, all ending in <b>{tiān|天}</b> (day):<br><br><b>{jīntiān|今天}</b> = today<br><b>{míngtiān|明天}</b> = tomorrow<br><b>{zuótiān|昨天}</b> = yesterday<br><br>And <b>{xiànzài|现在}</b> = now.`,ex:[["今天我在家。","jintian wo zai jia","Today I'm at home."]]},
+  {title:"Telling the time",body:`{Xiànzài jǐ diǎn?|现在几点？} = What time is it now?<br><br>Answer: number + <b>{diǎn|点}</b><br>{sān diǎn|三点} = 3:00<br><br>Half past: add <b>{bàn|半}</b><br>{bā diǎn bàn|八点半} = 8:30<br><br>⚠️ 2 o'clock = <b>{liǎng diǎn|两点}</b> (not èr diǎn).`,ex:[["现在几点？","xianzai ji dian","What time is it?"],["两点半。","liang dian ban","Half past two."]]}
+ ],
+ sents:[["我明天去中国。","wo mingtian qu zhongguo","I'm going to China tomorrow.",0],["你明天来吗？","ni mingtian lai ma","Are you coming tomorrow?",0],["昨天我在公司。","zuotian wo zai gongsi","Yesterday I was at the company.",0],
+  ["今天我在家。","jintian wo zai jia","Today I'm at home.",1],["现在几点？","xianzai ji dian","What time is it now?",2],["现在三点。","xianzai san dian","It's three o'clock now.",2],
+  ["八点半。","ba dian ban","Half past eight.",2],["两点半。","liang dian ban","Half past two.",2]],
+ dlg:[["ali","林，现在几点？","lin , xianzai ji dian","Lin, what time is it?"],["lin","现在两点。","xianzai liang dian","It's two o'clock."],
+  ["ali","你今天去公司吗？","ni jintian qu gongsi ma","Are you going to the company today?"],["lin","今天不去。我明天去。","jintian bu2 qu . wo mingtian qu","Not today. I'm going tomorrow."],
+  ["ali","明天几点？","mingtian ji dian","What time tomorrow?"],["lin","九点半。","jiu dian ban","Half past nine."]]},
+
+{title:"Eat, drink, speak",goal:"Talk about eating, drinking, listening and speaking Chinese.",
+ words:"chi he fan kan ting shuo zhongwen",focus:"chi he kan ting shuo",
+ gram:[
+  {title:"Who + verb + what",body:`Order is like English: <b>who – does – what</b>.<br><br>{Wǒ <b>hē</b> chá.|我喝茶。} = I drink tea.<br>{Wǒ <b>chī</b> fàn.|我吃饭。} = I eat (a meal).<br><br>Azerbaijani puts the verb last (Mən çay <b>içirəm</b>). Chinese puts it in the middle.`,ex:[["我喝茶。","wo he cha","I drink tea."]]},
+  {title:"Nǐ chī fàn le ma? = Hello! 🍚",body:`<b>{fàn|饭}</b> = rice / a meal, so <b>{chī fàn|吃饭}</b> = to eat.<br><br>{Nǐ chī fàn le ma?|你吃饭了吗？} = "Have you eaten?" — Chinese people use it like "How are you?". The <b>le</b> means "already done".<br><br>Answer: {Chī le!|吃了！} (yes) or {Méiyǒu.|没有。} (not yet).`,ex:[["你吃饭了吗？","ni chi fan le ma","Have you eaten?"]]},
+  {title:"shuō Zhōngwén = speak Chinese",body:`<b>{shuō|说}</b> + language:<br>{Wǒ shuō yìdiǎn Zhōngwén.|我说一点中文。} = I speak a little Chinese.<br><br>Not: <b>bù shuō</b> (shuō is 1st tone, so bù stays bù).`,ex:[["我说一点中文。","wo shuo yidian zhongwen","I speak a little Chinese."]]},
+  {title:"kàn / tīng = look / listen",body:`<b>{kàn|看}</b> = look / watch / read · <b>{tīng|听}</b> = listen<br><br>{Nǐ kàn zhège!|你看这个！} = Look at this!<br>{Wǒ tīng Zhōngwén.|我听中文。} = I listen to Chinese.`,ex:[["你看这个！","ni kan zhege","Look at this!"]]}
+ ],
+ sents:[["我吃饭。","wo chi fan","I'm eating.",0],["我喝茶，你喝什么？","wo he cha , ni he shenme","I drink tea, what do you drink?",0],["你吃饭了吗？","ni chi fan le ma","Have you eaten?",1],
+  ["我说一点中文。","wo shuo yidian zhongwen","I speak a little Chinese.",2],["她不说中文。","ta2 bu shuo zhongwen","She doesn't speak Chinese.",2],
+  ["今天我听中文。","jintian wo ting zhongwen","Today I'm listening to Chinese.",3],["你看这个！","ni kan zhege","Look at this!",3]],
+ dlg:[["lin","阿里，你吃饭了吗？","ali , ni chi fan le ma","Ali, have you eaten?"],["ali","没有。","meiyou","Not yet."],
+  ["lin","我们去吃饭！你喝什么？","women qu chi fan . ni he shenme","Let's go eat! What will you drink?"],["ali","我喝茶。","wo he cha","I'll drink tea."],
+  ["lin","你说中文，很好！","ni shuo zhongwen , hen hao","You speak Chinese — very good!"],["ali","谢谢！我说一点中文。","xiexie . wo shuo yidian zhongwen","Thanks! I speak a little Chinese."]]},
+
+{title:"Likes & skills",goal:"Say what you like, what you can do, and what your job is.",
+ words:"xihuan hui mao gou zuo gongzuo maii",focus:"xihuan hui zuo maii",
+ gram:[
+  {title:"xǐhuan = like",body:`<b>{xǐhuan|喜欢}</b> + thing:<br>{Wǒ xǐhuan māo.|我喜欢猫。} = I like cats.<br><br><b>{xǐhuan|喜欢}</b> + action — just put the verb after it:<br>{Wǒ xǐhuan hē chá.|我喜欢喝茶。} = I like drinking tea.<br><br>Don't like: <b>{bù xǐhuan|不喜欢}</b>.`,ex:[["我喜欢猫。","wo xihuan mao","I like cats."]]},
+  {title:"huì = can (a learned skill)",body:`<b>{huì|会}</b> is for skills you learned — speaking, driving, cooking:<br><br>{Wǒ <b>huì</b> shuō Zhōngwén.|我会说中文。} = I can speak Chinese.<br><br>Can't: <b>{bú huì|不会}</b> (huì is 4th tone → bú).`,ex:[["我会说中文。","wo hui shuo zhongwen","I can speak Chinese."]]},
+  {title:"zuò = do · mǎi / mài = buy / sell",body:`<b>{zuò|做}</b> = do / make:<br>{Nǐ zuò shénme gōngzuò?|你做什么工作？} = What's your job? (lit. you do what work?)<br><br>⚠️ Only the tone is different:<br><b>{mǎi|买}</b> ˇ = buy · <b>{mài|卖}</b> ˋ = sell<br>{Wǒ zài Zhōngguó mǎi, zài Bākù mài.|我在中国买，在巴库卖。} = I buy in China, sell in Baku.`,ex:[["你做什么工作？","ni zuo shenme gongzuo","What's your job?"]]}
+ ],
+ sents:[["我喜欢猫。","wo xihuan mao","I like cats.",0],["我不喜欢狗。","wo bu xihuan gou","I don't like dogs.",0],["你喜欢喝茶吗？","ni xihuan he cha ma","Do you like drinking tea?",0],
+  ["我会说中文。","wo hui shuo zhongwen","I can speak Chinese.",1],["他不会说中文。","ta bu2 hui shuo zhongwen","He can't speak Chinese.",1],
+  ["你做什么工作？","ni zuo shenme gongzuo","What's your job?",2],["我在中国买，在巴库卖。","wo zai zhongguo mai , zai baku maii","I buy in China and sell in Baku.",2]],
+ dlg:[["lin","阿里，你做什么工作？","ali , ni zuo shenme gongzuo","Ali, what's your job?"],["ali","我是老板。我在中国买，在巴库卖。","wo shi laoban . wo zai zhongguo mai , zai baku maii","I'm a business owner. I buy in China and sell in Baku."],
+  ["lin","你会说中文吗？","ni hui shuo zhongwen ma","Can you speak Chinese?"],["ali","我会说一点。","wo hui shuo yidian","I can speak a little."],
+  ["lin","你喜欢猫吗？","ni xihuan mao ma","Do you like cats?"],["ali","我很喜欢猫！","wo hen xihuan mao","I really like cats!"],["lin","我也喜欢猫！","wo ye xihuan mao","I like cats too!"]]},
+
+{title:"Talking to suppliers",goal:"Ask for samples, WeChat, and the factory.",
+ words:"weixin fa gei yangpin gongchang qing",focus:"gei qing fa",
+ gram:[
+  {title:"gěi wǒ = to me (mənə)",body:`<b>{gěi|给}</b> = give / to someone. Pattern: <b>gěi + person + verb</b><br><br>{Qǐng <b>gěi wǒ</b> fā yàngpǐn.|请给我发样品。} = Please send <b>me</b> a sample.<br><br>Like Azerbaijani: <b>mənə</b> nümunə göndər → gěi wǒ fā yàngpǐn.`,ex:[["请给我发样品。","qing gei wo fa yangpin","Please send me a sample."]]},
+  {title:"qǐng = please (at the start)",body:`<b>{qǐng|请}</b> always goes at the <b>start</b>:<br><br>{Qǐng gěi wǒ kàn zhège.|请给我看这个。} = Please show me this one. (lit. please give me look this)`,ex:[["请给我看这个。","qing gei wo kan zhege","Please show me this one."]]},
+  {title:"Business words",body:`<b>{gōngchǎng|工厂}</b> = factory · <b>{yàngpǐn|样品}</b> = sample · <b>{wēixìn|微信}</b> = WeChat · <b>{fā|发}</b> = send<br><br>{Nǐ yǒu wēixìn ma?|你有微信吗？} = Do you have WeChat?<br>{Wǒ gěi nǐ fā wēixìn.|我给你发微信。} = I'll send you a WeChat message.`,ex:[["你有微信吗？","ni you weixin ma","Do you have WeChat?"]]}
+ ],
+ sents:[["请给我发样品。","qing gei wo fa yangpin","Please send me a sample.",0],["我给你发微信。","wo gei ni fa weixin","I'll send you a WeChat message.",0],
+  ["请给我看这个。","qing gei wo kan zhege","Please show me this one.",1],["你有微信吗？","ni you weixin ma","Do you have WeChat?",2],["你的工厂在哪儿？","ni de gongchang zai nar","Where is your factory?",2],
+  ["样品多少钱？","yangpin duoshao qian","How much is the sample?",2],["我想去你的工厂。","wo xiang qu ni de gongchang","I'd like to go to your factory.",2]],
+ dlg:[["ali","老板，你好！你有微信吗？","laoban , ni hao . ni you weixin ma","Hello, boss! Do you have WeChat?"],["boss","有！你要什么？","you . ni yao shenme","Yes! What do you want?"],
+  ["ali","我想买这个。请给我发样品。","wo xiang mai zhege . qing gei wo fa yangpin","I'd like to buy this. Please send me a sample."],["boss","可以。样品五十块。","keyi . yangpin wu shi2 kuai","OK. The sample is 50 yuan."],
+  ["ali","好。你的工厂在哪儿？","hao . ni de gongchang zai nar","OK. Where is your factory?"],["boss","我们的工厂在中国。","women de gongchang zai zhongguo","Our factory is in China."],
+  ["ali","谢谢！我给你发微信。","xiexie . wo gei ni fa weixin","Thanks! I'll send you a WeChat message."]]},
+
+{title:"Bigger, cheaper, best",goal:"Compare things: bigger, cheaper, the best.",
+ words:"da xiao xin haokan bi zui",focus:"bi zui da xiao xin",
+ gram:[
+  {title:"A bǐ B = A is more … than B",body:`Pattern: <b>A + {bǐ|比} + B + adjective</b><br><br>{Zhège <b>bǐ</b> nàge guì.|这个比那个贵。} = This is more expensive than that.<br><br>Just like Azerbaijani: Bu <b>ondan</b> bahadır.<br>⚠️ Don't add hěn after bǐ.`,ex:[["这个比那个贵。","zhege bi nage gui","This one is more expensive than that one."]]},
+  {title:"zuì = the most",body:`<b>{zuì|最}</b> + adjective = the most …<br><br>{zuì guì|最贵} = the most expensive<br>{zuì hǎo|最好} = the best<br>{Zhège zuì piányi.|这个最便宜。} = This one is the cheapest.`,ex:[["这个最好。","zhege zui hao","This one is the best."]]},
+  {title:"big / small / new + de = a … one",body:`<b>{dà|大}</b> big · <b>{xiǎo|小}</b> small · <b>{xīn|新}</b> new · <b>{hǎokàn|好看}</b> good-looking<br><br>Add <b>de</b> to say "a … one":<br>{Wǒ yào <b>xīn de</b>.|我要新的。} = I want a <b>new one</b>.<br>{Wǒ yào <b>dà de</b>.|我要大的。} = I want the <b>big one</b>.`,ex:[["我要新的。","wo yao xin de","I want a new one."]]}
+ ],
+ sents:[["这个比那个贵。","zhege bi nage gui","This one is more expensive than that one.",0],["那个比这个便宜。","nage bi zhege pianyi","That one is cheaper than this one.",0],["我的猫比你的猫大。","wo de mao bi ni de mao da","My cat is bigger than your cat.",0],
+  ["这个最好。","zhege zui hao","This one is the best.",1],["这个最便宜。","zhege zui pianyi","This one is the cheapest.",1],
+  ["这个很好看！","zhege hen haokan","This one looks great!",2],["我要新的。","wo yao xin de","I want a new one.",2],["那个太小了。","nage tai xiao le","That one is too small.",2]],
+ dlg:[["ali","老板，这个多少钱？","laoban , zhege duoshao qian","Boss, how much is this one?"],["boss","这个八十块。","zhege ba shi2 kuai","This one is 80 yuan."],
+  ["ali","太贵了！那个呢？","tai gui le . nage ne","Too expensive! And that one?"],["boss","那个比这个便宜，五十块。","nage bi zhege pianyi , wu shi2 kuai","That one is cheaper than this one — 50 yuan."],
+  ["ali","那个太小了。我要大的。","nage tai xiao le . wo yao da de","That one is too small. I want a big one."],["boss","大的是新的，很好看！","da de shi xin de , hen haokan","The big one is new — very nice!"],["ali","好，我要大的。","hao , wo yao da de","OK, I'll take the big one."]]},
+
+{title:"Review & waiting for a sample",goal:"Ask 'when?', say 'I know / I don't know', and review Week 2.",
+ words:"deng zhidao shihou",focus:"shihou zhidao deng gei zai",
+ gram:[
+  {title:"shénme shíhou = when?",body:`<b>{shénme shíhou|什么时候}</b> = what time = <b>when</b>. It stays in place like every question word:<br><br>{Nǐ <b>shénme shíhou</b> lái?|你什么时候来？} = When are you coming?<br>{Wǒ <b>míngtiān</b> lái.|我明天来。} = I'm coming <b>tomorrow</b>.`,ex:[["你什么时候来？","ni shenme shihou lai","When are you coming?"]]},
+  {title:"děng / zhīdào = wait / know",body:`<b>{děng|等}</b> = wait · <b>{zhīdào|知道}</b> = know<br><br>{Děng wǒ!|等我！} = Wait for me!<br>{Wǒ <b>bù</b> zhīdào.|我不知道。} = I don't know.<br><br>Place + action: {Wǒ <b>zài gōngsī</b> děng nǐ.|我在公司等你。} = I'll wait for you <b>at the company</b>. (zài + place comes before the verb)`,ex:[["我不知道。","wo bu zhidao","I don't know."]]},
+  {title:"Week 2 recap 🎉",body:`<b>zài + place</b> — {Wǒ zài jiā|我在家}<br><b>qù / lái + place</b> — {Wǒ qù Zhōngguó|我去中国}<br><b>nǎr?</b> — where? (= nar)<br><b>time before the verb</b> — {Wǒ míngtiān qù|我明天去}<br><b>jǐ diǎn? · bàn</b> — {bā diǎn bàn|八点半}<br><b>xǐhuan · huì</b> — like · can<br><b>gěi wǒ</b> — to me (mənə)<br><b>A bǐ B …</b> — {Zhège bǐ nàge guì|这个比那个贵}<br><b>zuì</b> — the most<br><b>shénme shíhou?</b> — when?<br><br>Two weeks done. Amazing!`,ex:[]}
+ ],
+ sents:[["你什么时候来？","ni shenme shihou lai","When are you coming?",0],["样品什么时候来？","yangpin shenme shihou lai","When will the sample come?",0],
+  ["我不知道。","wo bu zhidao","I don't know.",1],["等我！","deng wo","Wait for me!",1],["我在公司等你。","wo zai gongsi deng ni","I'll wait for you at the company.",1],
+  ["我明天给你发微信。","wo mingtian gei ni fa weixin","I'll send you a WeChat message tomorrow.",2]],
+ dlg:[["boss","阿里，你的样品很好！","ali , ni de yangpin hen hao","Ali, your sample is very good!"],["ali","太好了！你什么时候发样品？","tai hao le . ni shenme shihou fa yangpin","Great! When will you send the sample?"],
+  ["boss","明天。你在巴库吗？","mingtian . ni zai baku ma","Tomorrow. Are you in Baku?"],["ali","对，我在巴库等。","dui , wo zai baku deng","Yes, I'll wait in Baku."],
+  ["boss","好的！我明天给你发微信。","hao de . wo mingtian gei ni fa weixin","OK! I'll send you a WeChat message tomorrow."],["ali","谢谢老板！再见！","xiexie laoban . zaijian","Thank you, boss! Goodbye!"]]}
 ];
-const WHO={lin:"Lin",ali:"Ali",boss:"Seller"};
+const WHO={lin:"Lin",ali:"Ali",boss:"Seller",cat:"Cat 🐱"};
 const PART=[{n:"New words",i:"🆕"},{n:"Grammar & sentences",i:"📘"},{n:"Conversation",i:"💬"}];
 
 /* ================== COMPILE COURSE ================== */
@@ -376,6 +566,57 @@ const DAYS=RAW.map(r=>({title:r.title,goal:r.goal,W:r.words.split(" "),F:r.focus
   S:r.sents.map(a=>mk(a,a[3])),
   DL:r.dlg.map(a=>({who:a[0],s:mk([a[1],a[2],a[3]])}))}));
 const tiles=s=>s.t.filter(k=>!PUN[k]);
+
+/* =====================================================================
+   STORIES — only words already learned. Line: [speaker, characters, tokens, English]
+   "after" = the day (0-based) that must be finished to unlock the story.
+   ===================================================================== */
+const STORY_RAW=[
+{id:"s1",title:"Hello, Lin!",cover:"👋",after:2,pages:[
+ {pic:"🏫",lines:[["","你好！我叫林。","ni hao . wo jiao lin","Hello! My name is Lin."],["","我是中国人。","wo shi zhongguo ren","I am Chinese."],["","我是学生。","wo shi xuesheng","I am a student."]]},
+ {pic:"🙋‍♂️",lines:[["","他叫什么名字？","ta jiao shenme mingzi","What's his name?"],["","他叫阿里。","ta jiao ali","His name is Ali."],["","他是阿塞拜疆人。","ta shi asbj ren","He is Azerbaijani."]]},
+ {pic:"🎒",lines:[["","阿里也是学生吗？","ali ye shi xuesheng ma","Is Ali a student too?"],["","对！阿里也是学生。","dui , ali ye shi xuesheng","Yes! Ali is a student too."],["","他不是老师。","ta bu2 shi laoshi","He is not a teacher."]]},
+ {pic:"🤝",lines:[["ali","你好，林！你好吗？","ni hao , lin . ni hao ma","Hello, Lin! How are you?"],["lin","我很好，你呢？","wo hen hao , ni ne","I'm fine, and you?"],["ali","我也很好！谢谢！","wo ye hen hao . xiexie","I'm fine too! Thanks!"]]}],
+ q:[["Where is Lin from?",["China","Azerbaijan"]],["Is Ali a teacher?",["No — he's a student","Yes, he's a teacher"]]]},
+
+{id:"s2",title:"Ali's family",cover:"👨‍👩‍👧",after:4,pages:[
+ {pic:"👨‍👩‍👧",lines:[["","我叫阿里。","wo jiao ali","My name is Ali."],["","这是我爸爸，那是我妈妈。","zhe shi wo baba , na shi wo mama","This is my dad, that is my mom."]]},
+ {pic:"👩‍🏫",lines:[["","我有一个姐姐。","wo you yi2 ge jiejie","I have one older sister."],["","我没有哥哥。","wo meiyou gege","I don't have an older brother."],["","我姐姐是老师。","wo jiejie shi laoshi","My older sister is a teacher."]]},
+ {pic:"🧑‍🤝‍🧑",lines:[["","我有三个中国朋友。","wo you san ge zhongguo pengyou","I have three Chinese friends."],["","林是我的朋友。","lin shi wo de pengyou","Lin is my friend."],["","她有两个哥哥！","ta2 you liang ge gege","She has two older brothers!"]]},
+ {pic:"🎁",lines:[["lin","阿里，这是你的吗？","ali , zhe shi ni de ma","Ali, is this yours?"],["ali","不是，那是我姐姐的。","bu2 shi , na shi wo jiejie de","No, that's my older sister's."]]}],
+ q:[["How many older sisters does Ali have?",["One","Two","Three"]],["Who is a teacher?",["Ali's older sister","Ali's dad","Lin"]],["How many older brothers does Lin have?",["Two","None","Three"]]]},
+
+{id:"s3",title:"At the tea shop",cover:"🍵",after:6,pages:[
+ {pic:"🏪",lines:[["","阿里想买茶。","ali xiang mai cha","Ali wants to buy tea."],["ali","老板，你好！你有茶吗？","laoban , ni hao . ni you cha ma","Hello, boss! Do you have tea?"],["boss","有！这个茶很好。","you . zhege cha hen hao","Yes! This tea is very good."]]},
+ {pic:"💰",lines:[["ali","这个多少钱？","zhege duoshao qian","How much is this one?"],["boss","八块。","ba kuai","Eight yuan."],["ali","太贵了！那个呢？","tai gui le . nage ne","Too expensive! And that one?"]]},
+ {pic:"🤝",lines:[["boss","那个五块，很便宜。","nage wu kuai , hen pianyi","That one is five yuan — very cheap."],["ali","便宜一点，可以吗？","pianyi yidian , keyi ma","A little cheaper, OK?"],["boss","可以，四块。","keyi , si kuai","OK, four yuan."]]},
+ {pic:"😄",lines:[["ali","好！我要两个。谢谢！","hao . wo yao liang ge . xiexie","Great! I want two. Thanks!"],["boss","不客气！再见！","buke . zaijian","You're welcome! Goodbye!"],["","阿里的茶很便宜！","ali de cha hen pianyi","Ali's tea is very cheap!"]]}],
+ q:[["How much was the first tea?",["8 yuan","5 yuan","4 yuan"]],["What price did Ali get in the end?",["4 yuan","5 yuan","8 yuan"]],["How many did he buy?",["Two","One","Ten"]]]},
+
+{id:"s4",title:"A day in Baku",cover:"🌆",after:8,pages:[
+ {pic:"🏠",lines:[["","现在八点。","xianzai ba dian","It's eight o'clock now."],["","阿里在家。","ali zai jia","Ali is at home."],["","他今天去公司。","ta jintian qu gongsi","Today he's going to the company."]]},
+ {pic:"🏢",lines:[["","九点半，阿里在公司。","jiu dian ban , ali zai gongsi","At half past nine, Ali is at the company."],["","林不在公司。","lin bu2 zai gongsi","Lin isn't at the company."],["","她在中国。","ta2 zai zhongguo","She is in China."]]},
+ {pic:"📱",lines:[["ali","林，你在哪儿？","lin , ni zai nar","Lin, where are you?"],["lin","我在中国。你呢？","wo zai zhongguo . ni ne","I'm in China. And you?"],["ali","我在巴库，在公司。","wo zai baku , zai gongsi","I'm in Baku, at the company."]]},
+ {pic:"✈️",lines:[["lin","你明天来中国吗？","ni mingtian lai zhongguo ma","Are you coming to China tomorrow?"],["ali","不，明天我不去。","bu , mingtian wo bu2 qu","No, I'm not going tomorrow."],["lin","好，再见！","hao , zaijian","OK, bye!"]]}],
+ q:[["What time is Ali at the company?",["9:30","8:00","2:00"]],["Where is Lin?",["In China","In Baku","At home"]]]},
+
+{id:"s5",title:"Ali and the cats",cover:"🐱",after:10,pages:[
+ {pic:"🐈",lines:[["","阿里很喜欢猫。","ali hen xihuan mao","Ali really likes cats."],["","他今天去看猫。","ta jintian qu kan mao","Today he's going to see the cats."]]},
+ {pic:"🍚",lines:[["","猫想吃饭。","mao xiang chi fan","The cats want to eat."],["","阿里也喝茶。","ali ye he cha","Ali drinks tea too."],["cat","喵！喵！","miao . miao","Meow! Meow!"]]},
+ {pic:"🐶",lines:[["","林不喜欢猫。","lin bu xihuan mao","Lin doesn't like cats."],["","她喜欢狗。","ta2 xihuan gou","She likes dogs."],["lin","狗很好！","gou hen hao","Dogs are great!"]]},
+ {pic:"😺",lines:[["ali","猫也很好！","mao ye hen hao","Cats are great too!"],["ali","我会说一点中文，猫会说喵！","wo hui shuo yidian zhongwen , mao hui shuo miao","I can speak a little Chinese — cats can say meow!"],["cat","喵！","miao","Meow!"]]}],
+ q:[["What does Lin like?",["Dogs","Cats","Tea"]],["What do the cats want?",["To eat","To sleep","To drink tea"]]]},
+
+{id:"s6",title:"The sample from China",cover:"📦",after:13,pages:[
+ {pic:"📱",lines:[["","阿里给林发微信。","ali gei lin fa weixin","Ali sends Lin a WeChat message."],["ali","林，你知道一个好工厂吗？","lin , ni zhidao yi2 ge hao gongchang ma","Lin, do you know a good factory?"]]},
+ {pic:"🏭",lines:[["lin","我知道！工厂在中国，很大。","wo zhidao . gongchang zai zhongguo , hen da","I do! The factory is in China — it's big."],["lin","工厂的样品很好看。","gongchang de yangpin hen haokan","The factory's samples look great."]]},
+ {pic:"💬",lines:[["ali","老板，样品多少钱？","laoban , yangpin duoshao qian","Boss, how much is the sample?"],["boss","五十块。我明天给你发。","wu shi2 kuai . wo mingtian gei ni fa","50 yuan. I'll send it to you tomorrow."]]},
+ {pic:"⏰",lines:[["","阿里在巴库等样品。","ali zai baku deng yangpin","Ali waits for the sample in Baku."],["ali","样品什么时候来？","yangpin shenme shihou lai","When will the sample come?"],["boss","明天！","mingtian","Tomorrow!"]]},
+ {pic:"🎉",lines:[["","样品来了！","yangpin lai le","The sample has arrived!"],["ali","太好了！这个样品最好！","tai hao le . zhege yangpin zui hao","Great! This sample is the best!"],["ali","我要十个！","wo yao shi2 ge","I want ten!"]]}],
+ q:[["Who does Ali message first?",["Lin","The boss","His sister"]],["How much is the sample?",["50 yuan","5 yuan","80 yuan"]],["Where does Ali wait?",["In Baku","In China","At the factory"]]]}
+];
+const STORIES=STORY_RAW.map(x=>Object.assign({},x,{pages:x.pages.map(pg=>({pic:pg.pic,lines:pg.lines.map(l=>({who:l[0],s:mk([l[1],l[2],l[3]])}))}))}));
+
 
 /* ================== STORAGE ================== */
 const KEY="pinyinflow.v2";
@@ -516,11 +757,20 @@ function compareMe(hz){if(!REC.audio)return;say(hz,false,()=>setTimeout(playMe,3
 function speakBox(hz,py,play){return'<div class="audio-row">'+(play?'<button class="round" onclick="say('+r(hz)+')">🔊</button><button class="round" onclick="say('+r(hz)+',true)">🐢</button>':'')+'<button class="round" title="Check my speaking" onclick="checkSpeech('+r(hz)+','+r(py)+',this)">🎤</button><button class="round" title="Record & compare" onclick="recToggle('+r(hz)+',this)">🔴</button></div><div class="cmp" id="cmp"></div><div class="feedback" id="fb"><span class="small mute">🎤 check my speaking · 🔴 record & compare</span></div>';}
 /* ================== MEMORY (spaced repetition) ================== */
 function newCard(){return{reps:0,ivl:0,ease:2.5,due:Date.now(),lapses:0};}
+/* Gentle steps for a weak memory: 1 → 2 → 4 → 7 days, then ×2. A mistake starts the word again (same day).
+   A word moves forward at most once per day, so seeing it many times in one lesson doesn't push it too far away. */
+const STEPS=[1,2,4,7];
 function schedule(c,g){
-  if(g===0){c.lapses++;c.reps=0;c.ivl=0;c.ease=Math.max(1.3,c.ease-0.2);c.due=Date.now();return c;}
-  if(c.reps===0)c.ivl=1;else if(c.reps===1)c.ivl=3;else c.ivl=Math.max(c.ivl+1,Math.round(c.ivl*c.ease));
-  c.reps++;c.due=sod(Date.now())+c.ivl*DAY;return c;
+  const t=dkey();
+  if(g===0){c.lapses=(c.lapses||0)+1;c.reps=0;c.ivl=0;c.ease=Math.max(1.3,(c.ease||2.5)-0.2);c.due=Date.now();c.miss=t;c.last=t;return c;}
+  if(c.last===t&&c.reps>0)return c;
+  c.ivl=c.reps<STEPS.length?STEPS[c.reps]:Math.max(c.ivl+1,Math.round(c.ivl*Math.min(c.ease||2.5,2)));
+  c.reps++;c.last=t;c.due=sod(Date.now())+c.ivl*DAY;return c;
 }
+function strength(c){if(!c||!c.reps)return 0;const i=c.ivl;return i>=14?5:i>=5?4:i>=3?3:i>=2?2:1;}
+function bars(n){let h='<span class="sbars" title="memory strength">';for(let i=1;i<=5;i++)h+='<i class="'+(i<=n?"on s"+n:"")+'"></i>';return h+'</span>';}
+function weakKeys(n){return Object.keys(S.cards).filter(k=>itemFromKey(k)).sort((a,b)=>{const A=S.cards[a],B=S.cards[b];return strength(A)-strength(B)||(B.lapses||0)-(A.lapses||0)||A.due-B.due;}).slice(0,n);}
+function itemFromKey(k){if(k.startsWith("w:")){const w=L[k.slice(2)];return w?{hz:w[0],py:w[1],en:w[2],k:k.slice(2)}:null;}const s=SENTS[k.slice(2)];return s?{hz:s.hz,py:s.py,en:s.en,s}:null;}
 function itemKey(st){return st.k?"w:"+st.k:"s:"+st.s.id;}
 function dueKeys(){const e=sod(Date.now())+DAY-1;return Object.keys(S.cards).filter(k=>S.cards[k].due<=e);}
 function addCard(key){if(!S.cards[key]){S.cards[key]=schedule(newCard(),2);}}
@@ -537,6 +787,8 @@ function maxDay(){let m=0;for(let d=0;d<DAYS.length;d++)if(avail(d,0))m=d;return
 function streak(){let n=0,d=new Date();d.setHours(12,0,0,0);if(!(S.log[dkey(d)]>0))d=new Date(d.getTime()-DAY);
   for(let i=0;i<2000;i++){const k=dkey(d);if(S.log[k]>0)n++;else if(d.getDay()!==S.settings.restDay)break;d=new Date(d.getTime()-DAY);}return n;}
 const totalXp=()=>Object.values(S.xp).reduce((a,b)=>a+b,0);
+function T(){if(!S.today||S.today.d!==today())S.today={d:today(),rev:0,parts:0,story:0,listen:0,skip:0};return S.today;}
+const weekOf=d=>Math.floor(d/7)+1;
 
 /* ================== OPTION POOLS ================== */
 function knownWords(d){const o=[];for(let i=0;i<=Math.min(d,DAYS.length-1);i++)DAYS[i].W.forEach(k=>o.push(k));return o;}
@@ -560,7 +812,7 @@ function reviewSteps(n,d){
 function buildPart(d,p){
   const D=DAYS[d],st=[];
   if(p===0){
-    if(d>0)st.push({t:"info",title:"Warm-up 🔥",text:"First, a quick review of earlier words and sentences."},...reviewSteps(d===6?10:6,d));
+    if(d>0)st.push({t:"info",title:"Warm-up 🔥",text:"First, a quick review of earlier words and sentences."},...reviewSteps(d%7===6?10:8,d));
     if(d>0||st.length)st.push({t:"info",title:"Day "+(d+1)+": "+D.title,text:D.goal});
     else st.push({t:"info",title:"Day 1: "+D.title,text:D.goal+" Listen to every word and say it out loud."});
     const W=D.W;
@@ -585,6 +837,8 @@ function buildPart(d,p){
     shuffle(multi).slice(0,3).forEach(s=>st.push({t:"fill",s}));
     shuffle(multi).slice(0,3).forEach(s=>st.push({t:"build",s,mode:"audio"}));
     shuffle(D.S).slice(0,3).forEach(s=>st.push({t:"lc",s}));
+    if(d>0){const old=shuffle(DAYS.slice(0,d).flatMap(x=>x.S).filter(s=>tiles(s).length>=3)).slice(0,2);
+      if(old.length)st.push({t:"info",title:"Remember these? 🧠",text:"Two sentences from earlier days."});old.forEach(s=>st.push({t:"build",s,mode:pick(["en","audio"])}));}
   }
   if(p===2){
     st.push({t:"dlg",d});
@@ -602,13 +856,18 @@ function buildPart(d,p){
 let SS=null;
 function openSess(o){SS=Object.assign({i:0,xp:0,right:0,wrong:0,combo:0,t0:Date.now()},o);$("session").classList.remove("hidden");document.body.style.overflow="hidden";renderStep();}
 function startPart(d,p){if(!avail(d,p)){toast("Finish the earlier lessons first 🔒");return;}openSess({kind:"part",d,p,steps:buildPart(d,p)});}
-function startReview(){if(!Object.keys(S.cards).length){toast("Finish your first lesson part first");return;}const d=maxDay();openSess({kind:"review",d,steps:reviewSteps(Math.min(20,Math.max(10,dueKeys().length)),d)});}
+function startReview(){if(!Object.keys(S.cards).length){toast("Finish your first lesson part first");return;}const d=maxDay();const n=dueKeys().length;
+  openSess({kind:"review",d,steps:[{t:"info",title:n?"Review 🔁":"Extra review 🔁",text:n?n+" words & sentences are waiting. Coming back to them right on time is how memory gets strong.":"Nothing is due — here's a mix of your weakest items."}].concat(n?reviewSteps(Math.min(30,n),d):weakKeys(10).map(k=>stepFor(k,d)).filter(Boolean))});}
+function startWeak(){if(Object.keys(S.cards).length<3){toast("Learn a few words first");return;}const d=maxDay();const st=[{t:"info",title:"Fix my weak words 💪",text:"Your "+Math.min(8,Object.keys(S.cards).length)+" weakest items. First you see each one again, then you practise it twice."}];
+  weakKeys(8).forEach(k=>{const it=itemFromKey(k);if(it.k)st.push({t:"word",k:it.k,again:true});else st.push({t:"sent",s:it.s,again:true});});
+  shuffle(weakKeys(8)).forEach(k=>{const a=stepFor(k,d);if(a)st.push(a);});shuffle(weakKeys(8)).forEach(k=>{const a=stepFor(k,d);if(a)st.push(a);});
+  openSess({kind:"weak",d,steps:st});}
 function startShadow(d){openSess({kind:"shadow",d,steps:[{t:"dlg",d},{t:"role",d}]});}
 function quitSession(){
   if(SS&&SS.kind==="part"&&SS.i<SS.steps.length&&SS.i>2&&!confirm("Leave this lesson? You'll need to start this part again."))return;
   closeSess();
 }
-function closeSess(){stopMic();try{speechSynthesis.cancel();}catch(e){}hideSheet();$("session").classList.add("hidden");document.body.style.overflow="";SS=null;render();}
+function closeSess(){stopPlayer();stopMic();try{speechSynthesis.cancel();}catch(e){}hideSheet();$("session").classList.add("hidden");document.body.style.overflow="";SS=null;render();}
 function bar(){$("sessBar").style.width=(SS.i/Math.max(SS.steps.length,1)*100)+"%";$("sessXp").textContent="⭐ "+SS.xp;}
 function next(){hideSheet();if(!SS)return;SS.i++;if(SS.i>=SS.steps.length)finish();else renderStep();}
 function hideSheet(){$("sheet").classList.add("hidden");}
@@ -621,11 +880,11 @@ function answer(ok,st,extra){
   if(SS.answered)return;SS.answered=true;beep(ok);
   const key=itemKey(st);if(S.cards[key])schedule(S.cards[key],ok?2:0);
   if(ok){SS.right++;SS.combo++;const x=10+(SS.combo>=3?5:0);SS.xp+=x;addXp(x);}
-  else{SS.wrong++;SS.combo=0;if(!st.retry)SS.steps.push(Object.assign({},st,{retry:true}));}
+  else{SS.wrong++;SS.combo=0;if((st.retry||0)<2)SS.steps.push(Object.assign({},st,{retry:(st.retry||0)+1}));}
   logAct();save();bar();
   const it=itemOf(st);R.length=R.length;const rr=r(it.hz);
   $("sheetIn").innerHTML=(ok?'<h3 class="ok">✅ Correct!'+(SS.combo>=3?'<span class="combo">🔥 '+SS.combo+' in a row!</span>':"")+'</h3>':'<h3 class="bad">❌ Correct answer:</h3>')+
-    '<div class="row" style="justify-content:space-between"><div><div class="p">'+cpy(it.py)+'</div>'+(S.settings.showHz?'<div class="mute">'+it.hz+'</div>':"")+'<div class="mute">'+it.en+'</div></div><button class="round" onclick="say('+rr+')">🔊</button></div>'+(extra||"")+(!ok?'<div class="small mute" style="margin-top:6px">It will come back at the end.</div>':"");
+    '<div class="row" style="justify-content:space-between"><div><div class="p">'+cpy(it.py)+'</div>'+(S.settings.showHz?'<div class="mute">'+it.hz+'</div>':"")+'<div class="mute">'+it.en+'</div></div><button class="round" onclick="say('+rr+')">🔊</button></div>'+(!ok&&st.k&&HOOK[st.k]?'<div class="hook">🪝 '+HOOK[st.k]+'</div>':"")+(extra||"")+(!ok?'<div class="small mute" style="margin-top:6px">It will come back at the end.</div>':"");
   const sh=$("sheet");sh.classList.remove("hidden","okk","badd");sh.classList.add(ok?"okk":"badd");
   setTimeout(()=>say(it.hz),ok?280:450);
 }
@@ -633,11 +892,11 @@ function answer(ok,st,extra){
 function renderStep(){
   stopMic();R=[];SS.answered=false;hideSheet();bar();
   const st=SS.steps[SS.i],b=$("sessBody");b.scrollTop=0;
-  ({info:rInfo,word:rWord,gram:rGram,sent:rSent,lc:rLc,ep:rEp,tone:rTone,build:rBuild,fill:rFill,match:rMatch,speak:rSpeak,dlg:rDlg,role:rRole})[st.t](st,b);
+  ({info:rInfo,word:rWord,gram:rGram,sent:rSent,lc:rLc,ep:rEp,tone:rTone,build:rBuild,fill:rFill,match:rMatch,speak:rSpeak,dlg:rDlg,role:rRole,player:rPlayer,story:rStory})[st.t](st,b);
 }
 function rInfo(st,b){b.innerHTML='<div class="flash"><div style="font-size:54px">'+(st.title.includes("Warm")?"🔥":"🎯")+'</div><div class="py md">'+st.title+'</div><div class="en">'+st.text+'</div></div>'+cont("Let's go");}
-function rWord(st,b){const w=L[st.k];SS.xp+=2;addXp(2);
-  b.innerHTML='<div class="flash"><span class="tag">New word</span><div class="py">'+cpy(w[1])+'</div>'+hzl(w[0])+'<div class="en">'+w[2]+'</div>'+(TIP[st.k]?'<div class="note">💡 '+TIP[st.k]+'</div>':"")+audioRow(w[0],w[1])+'<div class="small mute">Listen, then say it out loud 2–3 times</div></div>'+cont();
+function rWord(st,b){const w=L[st.k];SS.xp+=2;addXp(2);const c=S.cards["w:"+st.k];
+  b.innerHTML='<div class="flash"><span class="tag">'+(st.again?"Look again "+bars(strength(c)):"New word")+'</span><div class="py">'+cpy(w[1])+'</div>'+hzl(w[0])+'<div class="en">'+w[2]+'</div>'+(HOOK[st.k]?'<div class="hook">🪝 <b>Memory hook:</b> '+HOOK[st.k]+'</div>':"")+(TIP[st.k]?'<div class="note">💡 '+TIP[st.k]+'</div>':"")+audioRow(w[0],w[1])+'<div class="small mute">Listen, then say it out loud 2–3 times</div></div>'+cont();
   auto(w[0]);}
 function toneGrid(){return'<div class="tones">'+[["妈",1,"high & flat"],["麻",2,"rising ↗"],["马",3,"low dip ↘↗"],["骂",4,"falling ↘"]].map(x=>'<div onclick="say(\''+x[0]+'\')"><b class="t'+x[1]+'">'+mark("ma",x[1])+'</b><span class="small mute">'+x[2]+'</span></div>').join("")+'</div><p class="small mute" style="margin-top:0">mā = mom · má = hemp · mǎ = horse · mà = to scold</p>';}
 function exRow(s,hz){return'<div class="ex" onclick="say('+r(s.hz)+')"><div><div class="p">'+cpy(s.py)+'</div>'+(hz||S.settings.showHz?'<div class="mute small">'+s.hz+'</div>':"")+'<div class="e">'+s.en+'</div></div><span>🔊</span></div>';}
@@ -645,9 +904,9 @@ function zh(t){return t.replace(/\{([^|}]+)\|([^}]+)\}/g,(m,a,b)=>'<span class="
 function gramHtml(g){return'<div class="gbody">'+zh(g.body)+'</div>'+(g.tones?toneGrid():"")+(g.after?'<div class="gbody small">'+zh(g.after)+'</div>':"")+g.ex.map(s=>exRow(s,true)).join("");}
 function rGram(st,b){const g=DAYS[st.d].G[st.gi];SS.xp+=2;addXp(2);
   b.innerHTML='<div style="flex:1"><span class="tag gold">Grammar</span><h2>'+g.title+'</h2>'+gramHtml(g)+'</div>'+cont("Got it");}
-function rSent(st,b){const s=st.s;SS.xp+=2;addXp(2);
+function rSent(st,b){const s=st.s;SS.xp+=2;addXp(2);const again=st.again;
   const chips=tiles(s).map(k=>'<div class="chip2" onclick="say('+r(L[k][0])+')"><b>'+cpy(L[k][1])+'</b><small>'+L[k][2]+'</small></div>').join("");
-  b.innerHTML='<div class="flash"><span class="tag green">New sentence</span><div class="py md">'+cpy(s.py)+'</div>'+hzl(s.hz)+'<div class="en">'+s.en+'</div><div class="chips2">'+chips+'</div>'+audioRow(s.hz,s.py)+'</div>'+cont();
+  b.innerHTML='<div class="flash"><span class="tag green">'+(again?"Look again":"New sentence")+'</span><div class="py md">'+cpy(s.py)+'</div>'+hzl(s.hz)+'<div class="en">'+s.en+'</div><div class="chips2">'+chips+'</div>'+audioRow(s.hz,s.py)+'</div>'+cont();
   auto(s.hz);}
 function optButtons(opts,cls){return'<div class="opts">'+opts.map((o,j)=>'<button class="btn opt '+(cls||"")+'" id="o'+j+'" onclick="pickOpt('+j+')">'+o.label+'</button>').join("")+'</div>';}
 function pickOpt(j){if(SS.answered){const o=SS.opts[j];if(o.hz)say(o.hz);return;}const st=SS.steps[SS.i];SS.opts.forEach((o,i)=>{if(o.ok)$("o"+i).classList.add("right");});if(!SS.opts[j].ok)$("o"+j).classList.add("wrong");answer(SS.opts[j].ok,st);}
@@ -733,32 +992,146 @@ function finish(){
     if(sp.p===0)D.W.filter(goodWord).forEach(k=>addCard("w:"+k));
     if(sp.p===1)D.S.forEach(s=>addCard("s:"+s.id));
     if(sp.p===2)D.DL.filter(l=>l.who==="ali"&&tiles(l.s).length>=2).forEach(l=>addCard("s:"+l.s.id));
+    T().parts++;
     title=dayDone(sp.d)?"Day "+(sp.d+1)+" complete! 🏆":PART[sp.p].n+" done!";
-    sub=dayDone(sp.d)?(sp.d===6?"You finished Week 1! Week 2 is coming.":"Tomorrow: Day "+(sp.d+2)+" — "+DAYS[sp.d+1].title):"";
+    sub=dayDone(sp.d)?(sp.d===DAYS.length-1?"You finished every lesson so far! Week "+(weekOf(sp.d)+1)+" is coming.":sp.d%7===6?"Week "+weekOf(sp.d)+" complete! Next: Week "+(weekOf(sp.d)+1)+".":"Tomorrow: Day "+(sp.d+2)+" — "+DAYS[sp.d+1].title):"";
+    if(dayDone(sp.d))sub+='<br><br>🎧 Listen to today\'s recap once — it locks the words in.';
   }
+  if(sp.kind==="review"||sp.kind==="weak")T().rev++;
   logAct();save();
   const acc=sp.right+sp.wrong?Math.round(sp.right/(sp.right+sp.wrong)*100):100;const mins=Math.max(1,Math.round((Date.now()-sp.t0)/60000));
   const np=nextPart();const sameDay=np&&sp.kind==="part"&&np[0]===sp.d;
   $("sessBar").style.width="100%";
-  $("sessBody").innerHTML='<div class="flash"><div style="font-size:64px">🎉</div><div class="py md">'+title+'</div><div class="stats" style="width:100%"><div class="stat"><b>⭐ '+sp.xp+'</b><span>XP</span></div><div class="stat"><b>'+acc+'%</b><span>correct</span></div><div class="stat"><b>'+mins+'</b><span>minutes</span></div></div><div class="en">🔥 '+streak()+' day streak</div><p class="small mute">'+sub+'</p></div><div class="bottom">'+(sameDay?'<button class="btn primary big" onclick="startPart('+np[0]+','+np[1]+')">Next: '+PART[np[1]].i+' '+PART[np[1]].n+'</button><button class="btn" onclick="closeSess()">Later</button>':'<button class="btn primary big" onclick="closeSess()">Finish</button>')+'</div>';
+  $("sessBody").innerHTML='<div class="flash"><div style="font-size:64px">🎉</div><div class="py md">'+title+'</div><div class="stats" style="width:100%"><div class="stat"><b>⭐ '+sp.xp+'</b><span>XP</span></div><div class="stat"><b>'+acc+'%</b><span>correct</span></div><div class="stat"><b>'+mins+'</b><span>minutes</span></div></div><div class="en">🔥 '+streak()+' day streak</div><p class="small mute">'+sub+'</p></div><div class="bottom">'+(sp.kind==="part"&&dayDone(sp.d)?'<button class="btn primary big" onclick="startListen(\'day\','+sp.d+')">🎧 Listen to Day '+(sp.d+1)+' recap</button>':"")+(sameDay?'<button class="btn primary big" onclick="startPart('+np[0]+','+np[1]+')">Next: '+PART[np[1]].i+' '+PART[np[1]].n+'</button><button class="btn" onclick="closeSess()">Later</button>':'<button class="btn'+(sp.kind==="part"&&dayDone(sp.d)?"":" primary big")+'" onclick="closeSess()">Finish</button>')+'</div>';
 }
+
+
+/* ================== STORY READER ================== */
+const storyOpen=x=>dayDone(x.after);
+const storyStars=x=>(S.stories&&S.stories[x.id])?S.stories[x.id].stars:null;
+function nextStory(){return STORIES.find(x=>storyOpen(x)&&storyStars(x)===null)||null;}
+function openStory(i){const x=STORIES[i];if(!storyOpen(x)){toast("Finish Day "+(x.after+1)+" to unlock this story 🔒");return;}
+  openSess({kind:"story",steps:[{t:"story",i}]});}
+function rStory(st,b){SS.sto={i:st.i,pg:0,looked:new Set(),qa:[],qi:0,showEn:false};drawStory();}
+function stoWord(k){const w=L[k];return'<span class="wt" onclick="wordPop(\''+k+'\')"><b>'+cpy(w[1])+'</b><small>'+w[0]+'</small></span>';}
+function stoLine(l,n){let h='';l.s.t.forEach(k=>{h+=PUN[k]?'<span class="pu">'+PUN[k]+'</span>':stoWord(k);});const end=l.s.hz.slice(-1);h+='<span class="pu">'+(end==="？"?"?":end==="！"?"!":end==="。"?".":"")+'</span>';
+  return'<div class="sline" id="sl'+n+'">'+(l.who?'<span class="who-chip '+l.who+'">'+WHO[l.who]+'</span>':'')+'<div class="swords">'+h+'</div><div class="srow"><button class="btn sm ghost" onclick="say('+r(l.s.hz)+')">🔊</button><span class="sen" style="display:'+(SS.sto.showEn?"inline":"none")+'">'+l.s.en+'</span></div></div>';}
+function drawStory(){const o=SS.sto,x=STORIES[o.i],n=x.pages.length;R=[];
+  $("sessBar").style.width=(o.pg/(n+1)*100)+"%";
+  if(o.pg>=n)return drawStoryQuiz();
+  const pg=x.pages[o.pg];
+  $("sessBody").innerHTML='<div style="flex:1"><div class="row" style="justify-content:space-between"><span class="tag gold">📖 '+x.title+'</span><span class="small mute">Page '+(o.pg+1)+' / '+n+'</span></div>'+
+    '<div class="spic">'+pg.pic+'</div>'+pg.lines.map((l,j)=>stoLine(l,j)).join("")+
+    '<div class="row" style="justify-content:center;gap:8px;margin-top:8px"><button class="btn sm" onclick="readPage()">▶ Read page</button><button class="btn sm" onclick="SS.sto.showEn=!SS.sto.showEn;drawStory()">'+(o.showEn?"Hide":"Show")+' English</button></div>'+
+    '<p class="small mute" style="text-align:center">Tap any word to hear it and see what it means.</p></div>'+
+    '<div class="bottom"><div class="grid2"><button class="btn big" '+(o.pg?'':'disabled')+' onclick="SS.sto.pg--;drawStory()">◀ Back</button><button class="btn primary big" onclick="SS.sto.pg++;drawStory()">'+(o.pg===n-1?"Questions ▶":"Next ▶")+'</button></div></div><div id="wpop" class="wpop hidden"></div>';
+  if(o.pg===0&&!o.started){o.started=1;}
+  setTimeout(readPage,350);}
+function readPage(){const o=SS&&SS.sto;if(!o)return;const pg=STORIES[o.i].pages[o.pg];if(!pg)return;const my=o.pg;let j=0;
+  const go=()=>{if(!SS||!SS.sto||SS.sto.pg!==my||j>=pg.lines.length){document.querySelectorAll(".sline").forEach(e=>e.classList.remove("on"));return;}
+    document.querySelectorAll(".sline").forEach((e,n)=>e.classList.toggle("on",n===j));const l=pg.lines[j++];say(l.s.hz,false,()=>setTimeout(go,450));};go();}
+function wordPop(k){const w=L[k],c=S.cards["w:"+k],o=SS.sto;o.looked.add(k);
+  if(c&&c.due>Date.now()&&strength(c)<=3)c.due=Date.now();save();
+  say(w[0]);R.push(w[0]);const ri="R["+(R.length-1)+"]";
+  const el=$("wpop");el.innerHTML='<div class="row" style="justify-content:space-between;align-items:flex-start"><div><div class="py md">'+cpy(w[1])+'</div><div class="hz" style="font-size:18px">'+w[0]+'</div><div class="en">'+w[2]+(c?" "+bars(strength(c)):"")+'</div></div><button class="round" onclick="say('+ri+')">🔊</button></div>'+(HOOK[k]?'<div class="hook">🪝 '+HOOK[k]+'</div>':"")+'<button class="btn sm ghost" style="margin-top:6px" onclick="$(\'wpop\').classList.add(\'hidden\')">Close</button>';
+  el.classList.remove("hidden");}
+function drawStoryQuiz(){const o=SS.sto,x=STORIES[o.i];R=[];
+  if(o.qi>=x.q.length){const ok=o.qa.filter(Boolean).length,stars=ok===x.q.length?3:ok>=x.q.length-1?2:1;
+    S.stories=S.stories||{};const prev=S.stories[x.id];S.stories[x.id]={stars:Math.max(stars,prev?prev.stars:0),reads:(prev?prev.reads:0)+1};
+    const xp=20+ok*10;SS.xp+=xp;addXp(xp);T().story++;logAct();save();bar();$("sessBar").style.width="100%";
+    const looked=[...o.looked];
+    $("sessBody").innerHTML='<div class="flash"><div style="font-size:64px">'+x.cover+'</div><div class="py md">Story finished!</div><div style="font-size:34px">'+"⭐".repeat(stars)+"☆".repeat(3-stars)+'</div><div class="en">'+ok+' / '+x.q.length+' questions right · +'+xp+' XP</div>'+
+      (looked.length?'<div class="note" style="width:100%"><b>Words you looked up</b> — they\'ll come back in your review:<div class="chips2" style="justify-content:flex-start;margin-top:6px">'+looked.map(k=>'<div class="chip2" onclick="say('+r(L[k][0])+')"><b>'+cpy(L[k][1])+'</b><small>'+L[k][2]+'</small></div>').join("")+'</div></div>':'<p class="small mute">You didn\'t need to look up any words. 💪</p>')+
+      '</div><div class="bottom"><button class="btn" onclick="SS.sto={i:'+o.i+',pg:0,looked:new Set(),qa:[],qi:0,showEn:false};drawStory()">📖 Read again</button><button class="btn primary big" onclick="closeSess()">Finish</button></div>';return;}
+  const q=x.q[o.qi],order=o.order&&o.order.q===o.qi?o.order.a:(o.order={q:o.qi,a:shuffle(q[1].map((_,i)=>i))}).a;
+  $("sessBody").innerHTML='<div style="flex:1;text-align:center"><span class="tag gold">Question '+(o.qi+1)+' / '+x.q.length+'</span><div class="ask" style="margin-top:14px">'+q[0]+'</div><div class="opts">'+order.map(i=>'<button class="btn opt" id="sq'+i+'" onclick="stoAns('+i+')">'+q[1][i]+'</button>').join("")+'</div><div id="sqf"></div></div>';}
+function stoAns(i){const o=SS.sto,q=STORIES[o.i].q[o.qi];if(o.qa.length>o.qi)return;const ok=i===0;o.qa.push(ok);beep(ok);
+  $("sq0").classList.add("right");if(!ok)$("sq"+i).classList.add("wrong");
+  $("sqf").innerHTML='<p class="'+(ok?"ok":"bad")+'" style="font-weight:700">'+(ok?"✅ Right!":"❌ It was: "+q[1][0])+'</p><button class="btn primary big" onclick="SS.sto.qi++;drawStoryQuiz()">Next ▶</button>';}
+function renderStories(){
+  let h='<div class="card"><h2>📖 Stories</h2><p class="small mute" style="margin-top:-6px">Short stories using only words you\'ve learned. Tap any word to hear it and see the meaning.</p></div>';
+  const weeks=[...new Set(STORIES.map(x=>weekOf(x.after)))];
+  weeks.forEach(w=>{h+='<div class="card"><h3>Week '+w+'</h3><div class="sgrid">';
+    STORIES.forEach((x,i)=>{if(weekOf(x.after)!==w)return;const open=storyOpen(x),st=storyStars(x);
+      h+='<div class="scard'+(open?"":" lock")+'" onclick="openStory('+i+')"><div class="scov">'+(open?x.cover:"🔒")+'</div><div class="stit">'+x.title+'</div><div class="small '+(st===null&&open?"ok":"mute")+'">'+(!open?"After Day "+(x.after+1):st===null?"New!":"⭐".repeat(st)+"☆".repeat(3-st))+'</div></div>';});
+    h+='</div></div>';});
+  $("v-stories").innerHTML=h;}
+
+/* ================== LISTEN MODE (hands-free) ================== */
+let PL=null,wakeLock=null;
+function speakIn(text,lang,rate,onend){
+  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang=lang;
+    if(lang.startsWith("zh")&&zhVoice)u.voice=zhVoice;else{const v=speechSynthesis.getVoices().find(x=>/^en/i.test(x.lang));if(v)u.voice=v;}
+    u.rate=rate;let done=false;const f=()=>{if(!done){done=true;onend&&onend();}};u.onend=f;u.onerror=f;setTimeout(f,2500+text.length*(lang.startsWith("zh")?500:120));speechSynthesis.speak(u);}catch(e){onend&&onend();}
+}
+function listenItems(kind,d){
+  if(kind==="day"){const D=DAYS[d];return D.W.filter(goodWord).map(k=>itemFromKey("w:"+k)).concat(D.S.map(s=>itemFromKey("s:"+s.id)));}
+  if(kind==="weak")return weakKeys(15).map(itemFromKey);
+  if(kind==="due"){const k=dueKeys();return(k.length?k:shuffle(Object.keys(S.cards)).slice(0,15)).map(itemFromKey).filter(Boolean);}
+  return shuffle(Object.keys(S.cards)).slice(0,20).map(itemFromKey).filter(Boolean);
+}
+function startListen(kind,d){
+  const items=listenItems(kind,d).filter(Boolean);if(!items.length){toast("Learn some words first");return;}
+  const title=kind==="day"?"Day "+(d+1)+" recap":kind==="weak"?"My weak words":kind==="due"?"Today's words":"Mixed";
+  if(SS)closeSess();openSess({kind:"listen",steps:[{t:"player",items,title}]});
+}
+function rPlayer(st,b){PL={items:st.items,i:0,on:true,tok:0,title:st.title,phase:""};
+  try{if(navigator.wakeLock)navigator.wakeLock.request("screen").then(w=>wakeLock=w).catch(()=>{});}catch(e){}
+  drawPlayer();playItem();T().listen++;save();}
+function drawPlayer(){if(!PL)return;const it=PL.items[PL.i];R=[];
+  $("sessBar").style.width=(PL.i/PL.items.length*100)+"%";
+  $("sessBody").innerHTML='<div class="flash"><span class="tag green">🎧 '+PL.title+' · '+(PL.i+1)+'/'+PL.items.length+'</span><div class="py'+(it.s?" md":"")+'">'+cpy(it.py)+'</div><div class="hz">'+it.hz+'</div><div class="en" id="plEn" style="visibility:'+(PL.phase==="en"||PL.phase==="again"?"visible":"hidden")+'">'+it.en+'</div><div class="feedback" id="plPh">'+({zh:"🔊 Listen…",you:"🗣️ Your turn — say it!",en:"💬 Meaning…",again:"🔊 Once more…"}[PL.phase]||"")+'</div>'+(it.k&&HOOK[it.k]&&(PL.phase==="en"||PL.phase==="again")?'<div class="hook">🪝 '+HOOK[it.k]+'</div>':"")+'</div>'+
+  '<div class="bottom"><div class="grid2"><button class="btn big" onclick="plToggle()">'+(PL.on?"⏸ Pause":"▶ Play")+'</button><button class="btn big" onclick="plNext()">⏭ Next</button></div><p class="small mute" style="text-align:center;margin:4px 0 0">Keep the screen on. Say each word out loud in the pause.</p></div>';}
+function plWait(ms,f){const tk=PL.tok;setTimeout(()=>{if(PL&&PL.on&&PL.tok===tk)f();},ms);}
+function plStep(phase,f){if(!PL||!PL.on)return;PL.phase=phase;drawPlayer();f();}
+function playItem(){if(!PL||!PL.on)return;const tk=++PL.tok,it=PL.items[PL.i],ok=f=>()=>{if(PL&&PL.on&&PL.tok===tk)f();};
+  plStep("zh",()=>speakIn(it.hz,"zh-CN",S.settings.rate,ok(()=>{
+    plStep("you",()=>plWait(1800+it.py.length*90,()=>{
+      plStep("en",()=>speakIn(it.en.replace(/\(.*?\)/g,""),"en-US",1,ok(()=>{
+        plStep("again",()=>speakIn(it.hz,"zh-CN",S.settings.rate*0.9,ok(()=>plWait(900,()=>{plAdvance();}))));
+      })));
+    }));
+  })));
+}
+function plAdvance(){if(!PL)return;if(PL.i<PL.items.length-1){PL.i++;playItem();}else{stopPlayer();addXp(5+PL.items.length);logAct();save();
+  $("sessBody").innerHTML='<div class="flash"><div style="font-size:64px">🎧</div><div class="py md">Listening done!</div><div class="en">'+PL.items.length+' items heard and repeated.</div></div><div class="bottom"><button class="btn primary big" onclick="closeSess()">Finish</button></div>';PL=null;}}
+function plToggle(){if(!PL)return;PL.on=!PL.on;PL.tok++;speechSynthesis.cancel();if(PL.on)playItem();else drawPlayer();}
+function plNext(){if(!PL)return;PL.tok++;speechSynthesis.cancel();PL.on=true;PL.phase="";if(PL.i<PL.items.length-1){PL.i++;playItem();}else plAdvance();}
+function stopPlayer(){if(PL){PL.on=false;PL.tok++;}try{speechSynthesis.cancel();}catch(e){}try{if(wakeLock){wakeLock.release();wakeLock=null;}}catch(e){}}
 
 /* ================== VIEWS ================== */
 let cur="learn";
 function show(v){cur=v;document.querySelectorAll(".view").forEach(s=>s.classList.toggle("active",s.id==="v-"+v));document.querySelectorAll("nav.tabs button").forEach(b=>b.classList.toggle("on",b.dataset.v===v));render();window.scrollTo(0,0);}
 document.querySelectorAll("nav.tabs button").forEach(b=>b.onclick=()=>show(b.dataset.v));
 function render(){R=[];document.body.classList.toggle("nocolor",!S.settings.colors);$("streakChip").textContent="🔥 "+streak();$("xpChip").textContent="⭐ "+(S.xp[today()]||0);
-  ({learn:renderLearn,practice:renderPractice,notes:renderNotes,me:renderMe})[cur]();}
+  ({learn:renderLearn,stories:renderStories,practice:renderPractice,notes:renderNotes,me:renderMe})[cur]();}
 
+let openW={};
 function renderLearn(){
-  const np=nextPart(),due=dueKeys().length,isRest=new Date().getDay()===S.settings.restDay;let h="";
-  if(np){const[d,p]=np;h+='<div class="card hero"><div class="small mute">WEEK 1 · DAY '+(d+1)+' OF 7'+(isRest?" · REST DAY 😌":"")+'</div><h2 style="margin:6px 0 4px">'+DAYS[d].title+'</h2><div class="small mute" style="margin-bottom:14px">'+DAYS[d].goal+'</div><button class="btn primary big" onclick="startPart('+d+','+p+')">▶ '+PART[p].i+' '+PART[p].n+' · ~7 min</button>'+(isRest?'<div class="small mute" style="margin-top:8px">Your streak is safe today — study only if you want to.</div>':"")+'</div>';}
-  else h+='<div class="card hero"><h2>Week 1 complete! 🏆</h2><div class="small mute">Amazing work. Keep your memory fresh with the daily review until Week 2 arrives.</div><button class="btn primary big" style="margin-top:12px" onclick="startReview()">🔁 Daily review</button></div>';
-  if(voicesChecked&&!zhVoice)h+='<div class="card warn"><h3>🔈 Install the Chinese voice</h3><div class="small">Your device has no Chinese voice yet, so words may sound wrong.<br><br><b>Samsung:</b> Settings → General management → Text-to-speech → <b>Google</b> → ⚙️ → Install voice data → <b>Chinese (Mandarin)</b>. Then restart Chrome.</div></div>';
-  h+='<div class="card"><h3>Week 1</h3>';
-  DAYS.forEach((D,d)=>{h+='<div class="day"><div><div class="dn">Day '+(d+1)+' · '+D.title+'</div><div class="small mute">'+(dayDone(d)?"✓ Done":avail(d,0)?"Open":"🔒 Locked")+'</div></div><div class="pills">'+[0,1,2].map(p=>{const dn=isDone(d,p),av=avail(d,p),nx=np&&np[0]===d&&np[1]===p;return'<button class="pill'+(dn?" done":nx?" next":av?"":" lock")+'" title="'+PART[p].n+'" onclick="startPart('+d+','+p+')">'+(dn?"✓":av?PART[p].i:"🔒")+'</button>';}).join("")+'</div></div>';});
-  h+='<p class="small mute" style="margin:10px 0 0">🆕 New words · 📘 Grammar & sentences · 💬 Conversation. Tap a ✓ to redo it.</p></div>';
-  h+='<div class="card"><h3>➕ Got extra time?</h3><div class="grid2"><button class="btn" onclick="startReview()">🔁 Review'+(due?" ("+due+")":"")+'</button><button class="btn" onclick="show(\'practice\')">🎵 Tones & listening</button></div></div>';
+  const np=nextPart(),due=dueKeys().length,t=T(),isRest=new Date().getDay()===S.settings.restDay,sto=nextStory();let h="";
+  const voiceWarn=(voicesChecked&&!zhVoice)?'<div class="card warn"><h3>🔈 Install the Chinese voice</h3><div class="small">Your device has no Chinese voice yet, so words may sound wrong.<br><br><b>Samsung:</b> Settings → General management → Text-to-speech → <b>Google</b> → ⚙️ → Install voice data → <b>Chinese (Mandarin)</b>. Then restart Chrome.</div></div>':"";
+  /* hero: review first, then lesson */
+  if(due>0&&!t.skip){
+    h+='<div class="card hero"><div class="small mute">TODAY · STEP 1'+(isRest?" · REST DAY 😌":"")+'</div><h2 style="margin:6px 0 4px">Review first 🔁</h2><div class="small mute" style="margin-bottom:14px">'+due+' words & sentences are waiting. Reviewing <b>before</b> new lessons is the #1 trick for a weak memory.</div><button class="btn primary big" onclick="startReview()">🔁 Start review · ~'+Math.max(2,Math.round(due*0.3))+' min</button>'+(np?'<button class="btn ghost" style="color:#fff;margin-top:6px" onclick="T().skip=1;save();render()">Skip to the new lesson →</button>':"")+'</div>';
+  }else if(np){const[d,p]=np;
+    h+='<div class="card hero"><div class="small mute">WEEK '+weekOf(d)+' · DAY '+(d+1)+' OF '+DAYS.length+(isRest?" · REST DAY 😌":"")+'</div><h2 style="margin:6px 0 4px">'+DAYS[d].title+'</h2><div class="small mute" style="margin-bottom:14px">'+DAYS[d].goal+'</div><button class="btn primary big" onclick="startPart('+d+','+p+')">▶ '+PART[p].i+' '+PART[p].n+' · ~7 min</button>'+(isRest?'<div class="small mute" style="margin-top:8px">Your streak is safe today — study only if you want to.</div>':"")+'</div>';
+  }else h+='<div class="card hero"><h2>All lessons done! 🏆</h2><div class="small mute">Week '+(weekOf(DAYS.length-1)+1)+' is coming. Until then, keep everything fresh with review, stories and listening.</div><button class="btn primary big" style="margin-top:12px" onclick="startReview()">🔁 Review</button></div>';
+  h+=voiceWarn;
+  /* today's plan */
+  const row=(n,ok,title,sub,btn)=>'<div class="plan"><div class="n'+(ok?" ok":"")+'">'+(ok?"✓":n)+'</div><div class="t"><b>'+title+'</b><div class="small mute">'+sub+'</div></div>'+(btn||"")+'</div>';
+  h+='<div class="card"><h3>📋 Today\'s plan</h3>'+
+    row(1,due===0,"Review",due?due+" waiting":(t.rev?"Done today 💪":"All caught up"),due?'<button class="btn sm" onclick="startReview()">Go</button>':"")+
+    row(2,t.parts>0,"New lesson",t.parts?"Done today ("+t.parts+" part"+(t.parts>1?"s":"")+")":np?"Day "+(np[0]+1)+" · "+PART[np[1]].n:"All done",np&&!t.parts?'<button class="btn sm" onclick="startPart('+np[0]+','+np[1]+')">Go</button>':"")+
+    (sto?row(3,t.story>0,"Story: "+sto.title,"New story unlocked 📖",'<button class="btn sm" onclick="openStory('+STORIES.indexOf(sto)+')">Read</button>'):
+         row(3,t.listen>0||t.story>0,"Listen 🎧","Hands-free: hear & repeat your words",'<button class="btn sm" onclick="startListen(\'due\')">Play</button>'))+
+    '</div>';
+  /* weeks */
+  const nW=weekOf(DAYS.length-1);
+  for(let w=1;w<=nW;w++){const ds=DAYS.map((_,d)=>d).filter(d=>weekOf(d)===w),done=ds.filter(dayDone).length,isOpen=openW[w]!==undefined?openW[w]:done<ds.length||(np&&weekOf(np[0])===w);
+    h+='<div class="card"><div class="wkh" onclick="openW['+w+']='+(!isOpen)+';renderLearn()"><h3 style="margin:0">Week '+w+'</h3><span class="small mute">'+done+'/'+ds.length+' days '+(isOpen?"▲":"▼")+'</span></div>';
+    if(isOpen)ds.forEach(d=>{const D=DAYS[d];h+='<div class="day"><div><div class="dn">Day '+(d+1)+' · '+D.title+'</div><div class="small mute">'+(dayDone(d)?'✓ Done · <a href="#" onclick="startListen(\'day\','+d+');return false">🎧 recap</a>':avail(d,0)?"Open":"🔒 Locked")+'</div></div><div class="pills">'+[0,1,2].map(p=>{const dn=isDone(d,p),av=avail(d,p),nx=np&&np[0]===d&&np[1]===p;return'<button class="pill'+(dn?" done":nx?" next":av?"":" lock")+'" title="'+PART[p].n+'" onclick="startPart('+d+','+p+')">'+(dn?"✓":av?PART[p].i:"🔒")+'</button>';}).join("")+'</div></div>';});
+    h+='</div>';}
+  h+='<p class="small mute" style="text-align:center">🆕 New words · 📘 Grammar & sentences · 💬 Conversation · tap a ✓ to redo it</p>';
   $("v-learn").innerHTML=h;
 }
 
@@ -767,7 +1140,11 @@ const TONESETS=[["ma","妈","麻","马","骂"],["ba","八","拔","把","爸"],["
 let P={mode:null,score:0,count:0};
 function renderPractice(){
   const due=dueKeys().length,shadowDays=DAYS.map((_,d)=>d).filter(d=>isDone(d,2));
-  let h='<div class="card"><h2>Extra practice</h2><p class="small mute" style="margin-top:-6px">For when you have more time.</p><div class="grid2"><button class="btn primary" onclick="startReview()">🔁 Review'+(due?" ("+due+" due)":"")+'</button><button class="btn" onclick="P={mode:\'tone\',score:0,count:0};nextTone();renderPractice()">🎵 Tone trainer</button><button class="btn" onclick="P={mode:\'listen\',score:0,count:0};nextListen();renderPractice()">👂 Listening quiz</button>'+
+  const doneDays=DAYS.map((_,d)=>d).filter(dayDone);
+  let h='<div class="card"><h2>🧠 Memory boosters</h2><p class="small mute" style="margin-top:-6px">Short extras for a stronger memory.</p><div class="grid2"><button class="btn primary" onclick="startReview()">🔁 Review'+(due?" ("+due+")":"")+'</button><button class="btn primary" onclick="startWeak()">💪 Fix weak words</button></div>'+
+    '<h3 style="margin:16px 0 8px">🎧 Listen mode (hands-free)</h3><p class="small mute" style="margin-top:-4px">Chinese → pause (you repeat) → English → Chinese. Good for walking or before sleep.</p><div class="grid2"><button class="btn" onclick="startListen(\'due\')">Today\'s words</button><button class="btn" onclick="startListen(\'weak\')">Weak words</button><button class="btn" onclick="startListen(\'mix\')">Mixed</button>'+
+    '<select onchange="if(this.value!==\'\')startListen(\'day\',+this.value)"><option value="">Day recap…</option>'+doneDays.map(d=>'<option value="'+d+'">Day '+(d+1)+': '+DAYS[d].title+'</option>').join("")+'</select></div></div>'+
+    '<div class="card"><h2>Ear training</h2><div class="grid2"><button class="btn" onclick="P={mode:\'tone\',score:0,count:0};nextTone();renderPractice()">🎵 Tone trainer</button><button class="btn" onclick="P={mode:\'listen\',score:0,count:0};nextListen();renderPractice()">👂 Listening quiz</button>'+
     '<select onchange="if(this.value!==\'\')startShadow(+this.value)"><option value="">🗣️ Shadow a dialogue</option>'+shadowDays.map(d=>'<option value="'+d+'">Day '+(d+1)+': '+DAYS[d].title+'</option>').join("")+'</select></div>'+(shadowDays.length?"":'<p class="small mute">Dialogues unlock after each day\'s 💬 part.</p>')+'</div><div id="pArea"></div>';
   $("v-practice").innerHTML=h;
   if(P.mode==="tone")drawTone();else if(P.mode==="listen")drawListen();
@@ -799,7 +1176,8 @@ function renderNotes(){
   if(!any)h+='<p class="mute">Finish 🆕 New words of Day 1 to unlock the first notes.</p>';
   h+='</div>';
   const ws=Object.keys(S.cards).filter(k=>k.startsWith("w:")).map(k=>k.slice(2)).filter(k=>L[k]);
-  h+='<div class="card"><h2>My words <span class="small mute">('+ws.length+')</span></h2>'+(ws.length?ws.map(k=>'<div class="w" onclick="say('+r(L[k][0])+')"><span class="p">'+cpy(L[k][1])+(S.settings.showHz?' <span class="small mute">'+L[k][0]+'</span>':"")+'</span><span class="e">'+L[k][2]+'</span></div>').join(""):'<p class="mute">Words appear here after each 🆕 part.</p>')+'</div>';
+  ws.sort((a,b)=>strength(S.cards["w:"+a])-strength(S.cards["w:"+b]));
+  h+='<div class="card"><h2>My words <span class="small mute">('+ws.length+')</span></h2><p class="small mute" style="margin-top:-6px">Weakest first. Tap a word to hear it. '+bars(1)+' weak → '+bars(5)+' strong</p>'+(ws.length?ws.map(k=>'<div class="w" onclick="say('+r(L[k][0])+')"><div><span class="p">'+cpy(L[k][1])+'</span> <span class="small mute">'+L[k][0]+'</span>'+(HOOK[k]?'<div class="small mute">🪝 '+HOOK[k]+'</div>':"")+'</div><span class="e">'+L[k][2]+'<br>'+bars(strength(S.cards["w:"+k]))+'</span></div>').join(""):'<p class="mute">Words appear here after each 🆕 part.</p>')+'</div>';
   $("v-notes").innerHTML=h;
 }
 
